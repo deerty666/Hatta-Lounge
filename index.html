@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>هاتا لاونج</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- خط -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- العنوان -->
+<header class="top-bar">
+  <h1>هاتا لاونج</h1>
+</header>
+
+<!-- أزرار الأقسام -->
+<div class="categories">
+  <button class="active" data-section="section1">القسم الأول</button>
+  <button data-section="section2">القسم الثاني</button>
+  <button data-section="section3">القسم الثالث</button>
+  <button data-section="section4">القسم الرابع</button>
+  <button data-section="section5">القسم الخامس</button>
+  <button data-section="section6">القسم السادس</button>
+</div>
+
+<!-- القسم 1 -->
+<section class="menu-section" id="section1">
+  <h2>القسم الأول</h2>
+
+  <div class="item">
+    <div class="info">
+      <h3>وجبة 1</h3>
+      <p>وصف مختصر للوجبة</p>
+      <span class="price">22 ريال</span>
+    </div>
+    <img src="images/item1.jpg">
+  </div>
+
+  <div class="item">
+    <div class="info">
+      <h3>وجبة 2</h3>
+      <p>وصف مختصر للوجبة</p>
+      <span class="price">18 ريال</span>
+    </div>
+    <img src="images/item2.jpg">
+  </div>
+</section>
+
+<!-- القسم 2 -->
+<section class="menu-section" id="section2">
+  <h2>القسم الثاني</h2>
+
+  <div class="item">
+    <div class="info">
+      <h3>وجبة 1</h3>
+      <p>وصف مختصر</p>
+      <span class="price">20 ريال</span>
+    </div>
+    <img src="images/item1.jpg">
+  </div>
+
+  <div class="item">
+    <div class="info">
+      <h3>وجبة 2</h3>
+      <p>وصف مختصر</p>
+      <span class="price">25 ريال</span>
+    </div>
+    <img src="images/item2.jpg">
+  </div>
+</section>
+
+<!-- القسم 3 -->
+<section class="menu-section" id="section3">
+  <h2>القسم الثالث</h2>
+
+  <div class="item">
+    <div class="info">
+      <h3>وجبة 1</h3>
+      <p>وصف مختصر</p>
+      <span class="price">15 ريال</span>
+    </div>
+    <img src="images/item1.jpg">
+  </div>
+
+  <div class="item">
+    <div class="info">
+      <h3>وجبة 2</h3>
+      <p>وصف مختصر</p>
+      <span class="price">19 ريال</span>
+    </div>
+    <img src="images/item2.jpg">
+  </div>
+</section>
+
+<!-- القسم 4 -->
+<section class="menu-section" id="section4">
+  <h2>القسم الرابع</h2>
+
+  <div class="item">
+    <div class="info">
+      <h3>وجبة 1</h3>
+      <p>وصف مختصر</p>
+      <span class="price">30 ريال</span>
+    </div>
+    <img src="images/item1.jpg">
+  </div>
+
+  <div class="item">
+    <div class="info">
+      <h3>وجبة 2</h3>
+      <p>وصف مختصر</p>
+      <span class="price">28 ريال</span>
+    </div>
+    <img src="images/item2.jpg">
+  </div>
+</section>
+
+<!-- القسم 5 -->
+<section class="menu-section" id="section5">
+  <h2>القسم الخامس</h2>
+
+  <div class="item">
+    <div class="info">
+      <h3>وجبة 1</h3>
+      <p>وصف مختصر</p>
+      <span class="price">17 ريال</span>
+    </div>
+    <img src="images/item1.jpg">
+  </div>
+
+  <div class="item">
+    <div class="info">
+      <h3>وجبة 2</h3>
+      <p>وصف مختصر</p>
+      <span class="price">21 ريال</span>
+    </div>
+    <img src="images/item2.jpg">
+  </div>
+</section>
+
+<!-- القسم 6 -->
+<section class="menu-section" id="section6">
+  <h2>القسم السادس</h2>
+
+  <div class="item">
+    <div class="info">
+      <h3>وجبة 1</h3>
+      <p>وصف مختصر</p>
+      <span class="price">24 ريال</span>
+    </div>
+    <img src="images/item1.jpg">
+  </div>
+
+  <div class="item">
+    <div class="info">
+      <h3>وجبة 2</h3>
+      <p>وصف مختصر</p>
+      <span class="price">26 ريال</span>
+    </div>
+    <img src="images/item2.jpg">
+  </div>
+</section>
+
+<!-- JavaScript -->
+<script>
+const buttons = document.querySelectorAll('.categories button');
+const sections = document.querySelectorAll('.menu-section');
+
+// عند الضغط على زر
+buttons.forEach(btn => {
+  btn.addEventListener('click', () => {
+
+    buttons.forEach(b => b.classList.remove('active'));
+    sections.forEach(s => s.style.display = 'none');
+
+    btn.classList.add('active');
+
+    const target = btn.dataset.section;
+    document.getElementById(target).style.display = 'block';
+  });
+});
+
+// عرض أول قسم افتراضيًا
+sections.forEach((s, i) => {
+  s.style.display = i === 0 ? 'block' : 'none';
+});
+</script>
+
+</body>
+</html>
