@@ -196,7 +196,7 @@ body {
 }
 .categories {
   position: sticky;
-  top: 0;
+  top: 64px;
   z-index: 1000;
   background: #f6f6f6; /* نفس لون الخلفية */
   padding: 10px 8px;
