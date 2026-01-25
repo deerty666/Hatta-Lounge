@@ -948,25 +948,22 @@
 const buttons = document.querySelectorAll('.categories button');
 const sections = document.querySelectorAll('.menu-section');
 
-// عند الضغط على زر
+// عند الضغط على زر قسم
 buttons.forEach(btn => {
   btn.addEventListener('click', () => {
 
+    // إزالة التفعيل
     buttons.forEach(b => b.classList.remove('active'));
-    sections.forEach(s => s.style.display = 'none');
+    sections.forEach(s => s.classList.remove('active'));
 
+    // تفعيل الزر والقسم
     btn.classList.add('active');
-
     const target = btn.dataset.section;
-    document.getElementById(target).style.display = 'block';
+    document.getElementById(target).classList.add('active');
   });
 });
 
-// عرض أول قسم افتراضيًا
-sections.forEach((s, i) => {
-  s.style.display = i === 0 ? 'block' : 'none';
-});
+// تفعيل أول قسم افتراضيًا
+buttons[0].classList.add('active');
+sections[0].classList.add('active');
 </script>
-
-</body>
-</html>
