@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+
+      <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "e0889409-9aa2-415e-a8e6-c562b17d2de9",
+    });
+  });
+</script>
+     
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title> مطاعم ومطابخ سحايب ديرتي</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1A1512"> 
+
+<link rel="stylesheet" href="style.css"> 
+
+<style>
+/* ====== تنسيق النافذة المنبثقة للإشعارات (جديد) ====== */
+
+#notificationPrompt {
+    /* إخفاء افتراضياً، وسيتم إظهارها عبر JavaScript */
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.notification-content {
+    background: var(--card-bg-dark);
+    color: var(--light-text);
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 350px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    animation: fadeIn 0.3s ease-out;
+    border: 1px solid var(--gold);
+}
+
+.notification-content h3 {
+    color: var(--gold);
+    margin-top: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.notification-content p {
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.notification-content button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    margin: 5px;
+    transition: background 0.2s;
+    width: 100%; /* جعل الأزرار بعرض كامل للموبايل */
+}
+
+#allowNotifications {
+    background-color: var(--gold);
+    color: var(--old-brown);
+}
+
+#allowNotifications:hover {
+    background-color: #a07c4c;
+}
+
+#denyNotifications {
+    background-color: #333;
+    color: var(--light-text);
+}
+
+#denyNotifications:hover {
+    background-color: #555;
+}
+
+/* لكي لا تتضارب الأزرار في الهواتف الصغيرة */
+@media (min-width: 480px) {
+    .notification-content button {
+        width: 45%; 
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+</style>
+</head>
+<body>
+
+<header>
+      <button id="enableIosPush"
+        style="
+          display:none;
+          background:#E8C065;
+          color:#1A1512;
+          font-weight:700;
+          border:none;
+          border-radius:8px;
+          padding:10px 14px;
+          margin:8px auto;
+          width:90%;
+          max-width:320px;
+        ">
+📢 اضغط هنا لتفعيل الإشعارات
+</button>
+  <button id="installAppBtn" style="display:none;">تثبيت التطبيق 📲</button>
+
+<button id="iosHelpBtn" style="display:none;" class="ios-btn">
+    طريقة التثبيت 🍏
+</button>
+ 
+  <div><img src="logo-bg1.png" alt="شعار المطعم" onerror="this.style.opacity=0.25; this.style.height='50px'"></div>
+</header>
+
+<input type="search" id="searchBar" placeholder="ابحث عن وجبة سريعة أو صنف..." aria-label="البحث في القائمة">
+
+<div id="sections" aria-hidden="false"></div>
+<main id="menuList" role="list"></main>
+
+<div id="cartOverlay"></div>
+<div id="cartDrawer" aria-hidden="true">
+  <div class="cart-header">
+    <div>سلة الطلبات</div>
+    <button id="closeCartBtn" title="إغلاق">✖</button>
+  </div>
+  <div id="cartItems"></div>
+  <div id="cartSuggestions"></div>
+  <div class="delivery-options-container">
+    <input type="radio" id="deliveryTypePickup" name="deliveryType" value="pickup" checked>
+    <label for="deliveryTypePickup" class="delivery-option">
+      <span>استلام</span>
+    </label>
+
+    <input type="radio" id="deliveryTypeDelivery" name="deliveryType" value="delivery">
+    <label for="deliveryTypeDelivery" class="delivery-option">
+      <span>
+        توصيل
+        <span class="cost">5 ريال</span> 
+      </span>
+    </label>
+  </div>
+    
+  <div class="delivery-options-container" style="padding: 10px;">
+        <button id="getLocationBtn" type="button" class="action-btn" style="background-color: #38761D; border: none; font-size: 0.9em; margin: 10px 0;">
+            📍 تحديد موقع التوصيل الحالي
+        </button>
+        <p id="locationStatus" style="font-size: 0.8em; color: #fff; text-align: center; margin: 5px 0 0 0;"></p>
+    </div>
+    <div style="padding: 10px 20px; border-top: 1px solid var(--border-color); margin-top: 10px;">
+        <label for="manualAddress" style="font-size: 0.9em; margin-bottom: 5px; display: block; color: var(--gold); font-weight: 700;">
+            أو أدخل العنوان يدوياً هنا:
+        </label>
+        <textarea id="manualAddress" 
+                  placeholder="اسم الشارع، الحي، رقم المنزل، ملاحظات التوصيل..." 
+                  rows="2" 
+                  style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid var(--border-color); background-color: var(--search-bg); color: var(--light-text); font-size: 1em;"></textarea>
+    </div>
+    <div class="cart-footer">
+    <div id="totalBreakdown">
+      </div>
+    <div style="display:flex;gap:8px;">
+      <button id="sendWhatsapp" class="primary-btn" style="flex:1;">إرسال عبر واتساب</button>
+      <button id="clearCart" class="danger-btn" style="width:120px;">مسح السلة</button>
+    </div>
+  </div>
+</div>
+
+<!-- 🔥 Premium Cart Button -->
+<button id="cartBtn" aria-label="عرض السلة">
+  <svg viewBox="0 0 24 24" class="cart-icon">
+    <path d="M7 4h-2l-1 2h2l3.6 7.59-1.35 2.44C7.52 16.37 8 17 8.7 17H19v-2H9.42c-.14 0-.25-.11-.25-.25l.03-.12L10.1 13h6.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0 0 21 4H7z"/>
+  </svg>
+  <span id="cartCount">0</span>
+</button>
+
+<div id="optionModal">
+  <div class="modal-content">
+    <h3 id="modalTitle"></h3>
+    <div id="modalOptions"></div>
+    
+    <textarea id="itemNote" placeholder="ملاحظات خاصة على هذا الصنف (مثل: بدون ملح، فلفل خفيف)..." rows="3"></textarea>
+    
+    <button id="modalConfirm" class="primary-btn">تأكيد</button>
+  </div>
+</div>
+
+<div id="notificationPrompt">
+    <div class="notification-content">
+        <h3>هل تريد أن يصلك جديد عروضنا؟ 📢</h3>
+        <p>قم بتفعيل الإشعارات لتكون أول من يعلم عند إضافة أطباق جديدة أو خصومات مميزة!</p>
+        <button id="allowNotifications">نعم، أريد ذلك</button>
+        <button id="denyNotifications">لا شكراً</button>
+        
+    </div>
+</div>
+<div id="iosInstallBanner" class="ios-install-banner">
+  <h3 style="color: var(--gold); margin-top:0;">📱 تثبيت التطبيق على الآيفون</h3>
+  
+  <ul class="ios-steps">
+    <li>1️⃣ اضغط على زر <strong>المشاركة</strong> <span class="ios-icon">⏏️</span> في الأسفل.</li>
+    <li>2️⃣ انزل بالقائمة واختر <strong>"إضافة إلى الصفحة الرئيسية"</strong> <span class="ios-icon">➕</span>.</li>
+    <li>3️⃣ اضغط <strong>"إضافة"</strong> في الزاوية العلوية.</li>
+  </ul>
+
+  <button onclick="closeIosBanner()">مفهوم 👍</button>
+</div>
+<script src="Script.js?v=3.1" defer></script>
+
+</body>
+</html>
+
+</html>
