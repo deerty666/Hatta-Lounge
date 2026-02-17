@@ -752,6 +752,8 @@ function renderMenu(sectionName, searchTerm = ''){
 function showOptions(item, skipOptions = false, itemImage = null){ 
     selectedItem = item;
     selectedItemImage = itemImage;
+
+    selectedOption = null;
     selectedOptions = [];
 
     modalTitle.innerText = item.name;
@@ -760,31 +762,53 @@ function showOptions(item, skipOptions = false, itemImage = null){
     if(skipOptions || item.options.length === 0){
         modalOptions.style.display = 'none';
     } else {
+
         modalOptions.style.display = 'block';
         modalOptions.innerHTML='';
 
-        item.options.forEach(opt=>{
+        item.options.forEach((opt,index)=>{
+
             const wrapper = document.createElement('label');
             wrapper.style.display = "flex";
             wrapper.style.alignItems = "center";
             wrapper.style.gap = "8px";
             wrapper.style.marginBottom = "8px";
 
-            const checkbox = document.createElement('input');
-            checkbox.type = "checkbox";
+            const input = document.createElement('input');
 
-            checkbox.onchange = () => {
-                if(checkbox.checked){
-                    selectedOptions.push(opt);
-                } else {
-                    selectedOptions = selectedOptions.filter(o => o.name !== opt.name);
+            // 🔥 إذا متعدد (رمضان) → checkbox
+            if(item.isMultiOption){
+                input.type = "checkbox";
+
+                input.onchange = () => {
+                    if(input.checked){
+                        selectedOptions.push(opt);
+                    } else {
+                        selectedOptions = selectedOptions.filter(o => o.name !== opt.name);
+                    }
+                };
+
+            } 
+            // 🔥 باقي المنتجات → radio (اختيار واحد)
+            else {
+                input.type = "radio";
+                input.name = "productOption";
+
+                if(index === 0){
+                    input.checked = true;
+                    selectedOption = opt;
                 }
-            };
+
+                input.onchange = () => {
+                    selectedOption = opt;
+                };
+            }
 
             const text = document.createElement('span');
-            text.innerText = opt.name + (opt.price > 0 ? ` +${opt.price} ريال` : '');
+            text.innerText = opt.name + 
+                (opt.price > 0 ? ` +${opt.price} ريال` : '');
 
-            wrapper.appendChild(checkbox);
+            wrapper.appendChild(input);
             wrapper.appendChild(text);
             modalOptions.appendChild(wrapper);
         });
@@ -792,7 +816,6 @@ function showOptions(item, skipOptions = false, itemImage = null){
 
     optionModal.style.display='flex';
 }
-
 /* ====== Confirm modal ====== */
 optionModal.addEventListener('click', (e) => {
     if (e.target.id === 'optionModal') {
