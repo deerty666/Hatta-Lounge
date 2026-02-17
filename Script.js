@@ -56,6 +56,7 @@ const menuData = [
     id:"ram1",
     img:"sh10.webp", 
     name:"وجبة رمضان ربع دجاج",
+     description:"ربع دجاج • سمبوسة • شوربة • لبن • ماء • تمر",           
     basePrice:8,
     isBestSeller: true,
     availableIn: ['branch1','branch2','branch3'],
