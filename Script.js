@@ -795,6 +795,11 @@ function showOptions(item, skipOptions = false, itemImage = null){
 
 /* ====== Confirm modal ====== */
 optionModal.addEventListener('click', (e) => {
+    if (e.target.id === 'optionModal') {
+        optionModal.style.display = 'none';
+    }
+});
+
 modalConfirm.onclick = ()=>{
     if(selectedItem){
 
@@ -829,7 +834,6 @@ modalConfirm.onclick = ()=>{
         optionModal.style.display='none';
     }
 };
-
 
 /* ====== Cart functions - تم تحديثها لحذف خصائص الفروع عند الإضافة للسلة ====== */
 function saveCart(){ 
