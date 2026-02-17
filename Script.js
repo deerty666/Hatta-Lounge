@@ -1012,7 +1012,21 @@ if(it.selectedOption){
 }
 
 const price = (it.basePrice || 0) + optionsTotal;
-        const optionText = it.selectedOption && it.selectedOption.name !== 'نفر' && it.selectedOption.name !== 'طبق' && it.selectedOption.name !== 'عبوة' ? ` — ${it.selectedOption.name}` : '';
+        let optionText = "";
+
+// خيار مفرد
+if (it.selectedOption && 
+    it.selectedOption.name !== 'نفر' && 
+    it.selectedOption.name !== 'طبق' && 
+    it.selectedOption.name !== 'عبوة') {
+
+    optionText = ` — ${it.selectedOption.name}`;
+}
+
+// خيارات متعددة (وجبة رمضان)
+if (it.selectedOptions && it.selectedOptions.length > 0) {
+    optionText = ` — ${it.selectedOptions.map(o => o.name).join(' + ')}`;
+}
         const noteText = it.note ? ` (ملاحظة: ${it.note})` : '';
 
         lines.push(`${it.qty} × ${it.name}${optionText} ${noteText} — ${price*it.qty} ريال`);
