@@ -1,0 +1,894 @@
+/* ================================================= */
+/* 🌙 1. الألوان والمتغيرات العامة (لدعم الوضع الداكن) */
+/* ================================================= */
+:root {
+    /* الألوان الأساسية */
+    --gold: #c39e6a;
+    --old-brown: #1A1512;
+    --light-text: #fff;
+    --red: #D32F2F;
+
+    /* ألوان الوضع الداكن */
+    --body-bg: #121212; /* خلفية الصفحة */
+    --header-bg: #1e1e1e; /* خلفية الشريط العلوي */
+    --search-bg: #272727; /* خلفية شريط البحث */
+    --card-bg: #1e1e1e; /* خلفية بطاقة المنتج */
+    --card-bg-dark: #1A1512; /* خلفية البطاقة الأغمق (للسلة والإشعارات) */
+    --section-card-bg: #272727; /* خلفية بطاقة القسم */
+    --border-color: #333; /* لون الحدود */
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Cairo', sans-serif;
+    transition: all 0.2s ease-out; /* حركة سلسة للمتغيرات */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--body-bg);
+    color: var(--light-text);
+    padding-bottom: 90px; /* مسافة لزر السلة العائم */
+    direction: rtl;
+    text-align: right;
+    font-size: 16px;
+}
+
+/* ================================================= */
+/* 📱 2. الشريط العلوي والبحث (Header & Search) */
+/* ================================================= */
+header {
+    background: var(--header-bg);
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+header img {
+    height: 50px;
+}
+
+#installAppBtn {
+    background-color: var(--gold);
+    color: var(--old-brown);
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+#searchBar {
+    width: calc(100% - 30px);
+    margin: 15px;
+    padding: 12px 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 25px;
+    background-color: var(--search-bg);
+    color: var(--light-text);
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+#searchBar:focus {
+    border-color: var(--gold);
+}
+
+/* ================================================= */
+/* 🧭 3. الأقسام (Sections) - التصميم النهائي الاحترافي */
+/* ================================================= */
+
+/* تعريف حركة النبض الذهبية */
+@keyframes pulse-gold {
+    0% {
+        box-shadow: 0 0 0 0 rgba(195, 158, 106, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(195, 158, 106, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(195, 158, 106, 0);
+    }
+}
+#sections {
+    display: flex;
+    overflow-x: auto;
+    padding: 15px 15px;      /* تعديل بسيط للحشوة */
+    gap: 15px;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    margin-bottom: 20px;
+
+    /* --- خصائص التثبيت الجديدة --- */
+    position: sticky;        /* يجعل العنصر يلتصق عند التمرير */
+    top: 70px;               /* يحدد المسافة من أعلى الشاشة */
+    z-index: 9;              /* يضمن بقاء الشريط فوق المحتوى الآخر */
+    background-color: var(--body-bg); /* لون الخلفية لتغطية ما يمر تحته */
+    padding-bottom: 20px;    /* مسافة إضافية للجمالية */
+}
+
+
+#sections::-webkit-scrollbar {
+    display: none;
+}
+
+.sec-card {
+    flex: 0 0 auto;
+    width: 110px; /* العرض الجديد المكبر */
+    height: 145px; /* الارتفاع الجديد */
+    border-radius: 20px;
+    background-color: var(--section-card-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border: 2px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    scroll-snap-align: start;
+}
+
+.sec-card img {
+    width: 80px;  /* تكبير الصورة */
+    height: 80px; /* تكبير الصورة */
+    object-fit: cover;
+    border-radius: 50%; /* شكل دائري عصري */
+    margin-bottom: 10px;
+    background: #1a1a1a;
+    border: 2px solid rgba(195, 158, 106, 0.1);
+}
+
+.sec-card .sec-name {
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.95rem; /* تكبير الخط */
+    font-weight: 800; /* خط عريض */
+    color: var(--light-text);
+    line-height: 1.2;
+    transition: color 0.3s ease;
+}
+
+/* ✨ تأثير القسم النشط (Active) */
+.sec-card.active {
+    border-color: var(--gold);
+    background-color: #2a2522;
+    transform: translateY(-10px); /* رفع البطاقة للأعلى */
+    animation: pulse-gold 2s infinite; /* تأثير النبض */
+}
+
+.sec-card.active .sec-name {
+    color: var(--gold); /* تحويل النص للذهبي */
+}
+
+.sec-card.active img {
+    border-color: var(--gold);
+    transform: scale(1.1); /* تكبير الصورة قليلاً */
+}
+
+
+/* ================================================= */
+/* 🍽️ 4. بطاقات الوجبات (Menu Cards) */
+/* ================================================= */
+#menuList {
+    display: grid;
+    grid-template-columns: 1fr; /* عمود واحد فقط بعرض الشاشة */
+    gap: 15px;
+    padding: 0 15px;
+}
+
+@media (min-width: 600px) {
+    #menuList {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+}
+.card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-bottom: 10px;
+
+    /* 👇 انسخ هذا السطر وأضفه هنا 👇 */
+    border: 1px solid var(--gold); 
+}
+
+.card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.card h3 {
+    margin: 0 10px 5px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--light-text);
+}
+
+.card p {
+    margin: 0 10px 8px;
+    font-size: 0.8rem;
+    color: var(--gold); /* لون القسم بلون مميز */
+}
+
+.card .price {
+    margin: 0 10px 10px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--light-text);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.card .add-btn {
+    background-color: var(--gold);
+    color: var(--old-brown);
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    margin: 0 10px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 0.95rem;
+}
+
+.card .add-btn:hover {
+    background-color: #a07c4c;
+}
+
+.card .add-btn:disabled {
+    background-color: #555;
+    color: #bbb;
+    cursor: not-allowed;
+}
+
+.unavailable-card {
+    opacity: 0.6;
+}
+
+/* 🏆 شارة الأكثر مبيعاً */
+.best-seller-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--red);
+    color: var(--light-text);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    z-index: 5;
+}
+
+/* 🏷️ عرض الخصم */
+.old-price {
+    font-size: 0.9rem;
+    color: #aaa;
+    text-decoration: line-through;
+}
+.discount-price {
+    color: var(--red);
+    font-size: 1.1rem;
+}
+.discount-card {
+    border: 2px solid var(--red);
+}
+
+
+/* ================================================= */
+/* 🛒 5. زر السلة العائم (Cart Button) */
+/* ================================================= */
+#cartBtn {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    background-color: var(--gold);
+    color: var(--old-brown);
+    border: none;
+    border-radius: 50px;
+    padding: 15px 20px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#cartCount {
+    background-color: var(--red);
+    color: var(--light-text);
+    border-radius: 50%;
+    padding: 2px 8px;
+    font-size: 0.9rem;
+    min-width: 25px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.flash-cart-btn {
+    animation: flash 0.4s;
+}
+
+@keyframes flash {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+        background-color: var(--red);
+        color: var(--light-text);
+    }
+}
+
+
+/* ================================================= */
+/* 🚀 6. تأثير سقوط الصورة (Fly-to-Cart Effect) */
+/* ================================================= */
+.flying-img {
+    position: fixed;
+    /* تم التعديل: رفع الـ z-index لضمان الظهور فوق جميع النوافذ المنبثقة */
+    z-index: 10000; 
+    /* تم التعديل: تصغير الحجم وجعلها دائرية للمظهر الانسيابي */
+    width: 60px; 
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    pointer-events: none; /* لا تتفاعل مع الفأرة */
+    /* تم التعديل: تغيير منحنى الحركة (Cubic-Bezier) لتأثير أكثر حيوية */
+    transition: all 0.7s cubic-bezier(0.6, -0.28, 0.735, 0.045); 
+    opacity: 1;
+}
+
+
+/* ================================================= */
+/* 📦 7. درج السلة (Cart Drawer) - النسخة المدمجة والمضغوطة جداً */
+/* ================================================= */
+#cartOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 25;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+#cartOverlay.show {
+    display: block;
+    opacity: 1;
+}
+
+#cartDrawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    max-width: 400px; 
+    height: 100%;
+    /* ✨ تطبيق تأثير الزجاج المصنفر */
+    background-color: rgba(10, 10, 10, 0.9); 
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-left: 1px solid rgba(255, 255, 255, 0.1); 
+    z-index: 30;
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.3);
+    transform: translateX(100%); 
+    transition: transform 0.3s ease-out;
+    display: flex;
+    flex-direction: column; /* ترتيب العناصر عمودياً */
+}
+
+#cartDrawer.open {
+    transform: translateX(0);
+}
+
+/* 🔥 تم التعديل: تصغير الهيدر لتقليل الارتفاع */
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 15px; /* حشوة صغيرة جداً */
+    font-size: 1.1rem; /* خط أصغر قليلاً */
+    font-weight: 700;
+    color: var(--gold);
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0; /* منع الرأس من الانكماش */
+    min-height: 45px; /* ارتفاع ثابت وصغير */
+}
+
+#closeCartBtn {
+    background: none;
+    border: none;
+    color: var(--light-text);
+    font-size: 1.3rem; /* تصغير أيقونة الإغلاق */
+    cursor: pointer;
+    padding: 0 5px;
+}
+
+/* 🔥 تحسين: منطقة المنتجات هي التي تتمدد ولها شريط تمرير */
+#cartItems {
+    flex-grow: 1; /* التمدد لملء المساحة المتاحة */
+    overflow-y: auto; /* السماح بالتمرير العمودي */
+    padding: 5px 15px; /* هوامش صغيرة */
+    min-height: 80px; /* ضمان وجود مساحة للمنتجات */
+}
+
+/* 🔥 تحسين: ضغط صف المنتج */
+.cart-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0; /* تقليل المسافة العلوية والسفلية */
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.cart-row:last-child {
+    border-bottom: none;
+}
+
+.cart-row .controls {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* 🔥 تحسين: تصغير أزرار الكمية والحذف */
+.cart-row .controls button {
+    background: var(--search-bg);
+    color: var(--light-text);
+    border: none;
+    padding: 2px 8px; /* أزرار صغيرة جداً */
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.85rem; 
+    height: 24px;
+}
+
+.item-note-display {
+    font-size: 0.75rem;
+    color: #999;
+    margin-top: 2px;
+    padding-right: 15px;
+}
+
+/* ================================================= */
+/* 🛒 تنسيق اقتراحات السلة (المصغر جداً Compact Mode) */
+/* ================================================= */
+#cartSuggestions {
+    display: none; /* يظهر عبر الجافاسكربت */
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 6px;
+    padding: 5px 8px; /* هوامش مضغوطة */
+    background: rgba(255, 255, 255, 0.03); 
+    border-bottom: 1px solid var(--border-color);
+    -webkit-overflow-scrolling: touch; 
+    flex-shrink: 0; /* منع الانكماش */
+}
+
+#cartSuggestions::-webkit-scrollbar {
+    display: none;
+}
+
+.cart-suggestion-item {
+    display: inline-block;
+    width: 70px; /* عرض صغير جداً */
+    background: var(--search-bg);
+    border-radius: 6px;
+    padding: 3px;
+    margin-left: 4px;
+    text-align: center;
+    vertical-align: top;
+    border: 1px solid var(--border-color);
+}
+
+.cart-suggestion-item img {
+    width: 100%;
+    height: 35px; /* صورة قصيرة */
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 2px;
+}
+
+.cart-suggestion-item h4 {
+    font-size: 0.65rem; /* خط دقيق */
+    color: var(--light-text);
+    margin: 0 0 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* إضافة ... للنصوص الطويلة */
+}
+
+.cart-suggestion-item .price {
+    font-size: 0.7rem;
+    color: var(--gold);
+    font-weight: bold;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.cart-suggestion-item button {
+    background: var(--gold);
+    color: var(--old-brown);
+    border: none;
+    border-radius: 3px;
+    padding: 1px 0;
+    font-size: 0.65rem;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    line-height: 1.2;
+}
+
+
+/* ✨ تنسيقات بطاقات التوصيل والاستلام (المضغوطة) */
+
+.delivery-options-container {
+    background-color: transparent !important; 
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 15px; /* 🔥 تقليل الحواف */
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    gap: 6px; /* 🔥 تقليل الفجوة */
+    flex-shrink: 0; /* منع الانكماش */
+}
+
+.delivery-options-container input[type="radio"] {
+    display: none; 
+}
+
+/* تنسيق بطاقة الخيار */
+.delivery-option {
+    flex: 1;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    padding: 6px 4px; /* 🔥 حشوة صغيرة */
+    border-radius: 6px;
+    border: 2px solid var(--border-color);
+    background-color: var(--search-bg);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.delivery-options-container input[type="radio"]:checked + .delivery-option {
+    border-color: var(--gold); 
+    background-color: #2e2925; 
+    box-shadow: 0 0 8px rgba(195, 158, 106, 0.3);
+}
+
+.delivery-option span {
+    font-weight: 700;
+    font-size: 0.85rem; /* 🔥 خط أصغر */
+    color: var(--light-text);
+}
+.delivery-option .cost {
+    font-weight: 700;
+    color: var(--red); 
+    margin-top: 2px; 
+    font-size: 0.8rem;
+}
+
+/* منطقة العنوان اليدوي وزر الموقع - مضغوطة جداً */
+
+/* تنسيق الحاوية المحيطة بالعنوان في HTML */
+div[style*="border-top"] {
+    padding: 5px 15px !important;
+    margin-top: 0 !important; /* إزالة المسافة العلوية */
+    border-top: none !important; /* إزالة الخط الفاصل لتوفير المساحة */
+    background: rgba(255,255,255,0.03); /* تمييز خفيف */
+    flex-shrink: 0;
+}
+
+/* تصغير زر تحديد الموقع */
+#getLocationBtn {
+    background-color: #38761D; 
+    border: none; 
+    font-size: 0.8rem !important; 
+    margin: 5px 0 !important;
+    padding: 6px !important;
+    width: 100%;
+    border-radius: 6px;
+    cursor: pointer;
+    color: white;
+}
+
+/* تصغير عنوان "أو أدخل العنوان يدوياً" */
+div[style*="border-top"] label {
+    font-size: 0.75rem !important;
+    margin-bottom: 2px !important;
+    display: block;
+    color: var(--gold);
+    font-weight: 700;
+}
+
+/* تصغير خانة النص */
+#manualAddress {
+    width: 100%; 
+    padding: 5px 8px; 
+    border-radius: 6px; 
+    border: 1px solid var(--border-color); 
+    background-color: var(--search-bg); 
+    color: var(--light-text); 
+    font-size: 0.85rem;
+    height: 35px; /* ارتفاع سطر واحد فقط */
+    min-height: 35px;
+    resize: none;
+}
+
+
+/* الفوتر (زر الإرسال) */
+.cart-footer {
+    padding: 10px 15px; /* هوامش أقل */
+    background-color: var(--header-bg);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+    flex-shrink: 0; /* منع الانكماش، يبقى ظاهراً */
+}
+
+.total-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: 0.85rem;
+}
+
+.final-total-line {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--gold);
+    margin-top: 5px;
+    padding-top: 5px;
+    border-top: 1px solid var(--border-color);
+}
+
+.primary-btn {
+    background-color: var(--gold);
+    color: var(--old-brown);
+    padding: 10px 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.danger-btn {
+    background-color: var(--red);
+    color: var(--light-text);
+    padding: 10px 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+
+/* ================================================= */
+/* ⚙️ 8. النافذة المنبثقة للخيارات (Options Modal) */
+/* ================================================= */
+#optionModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 50;
+    display: none; 
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-content {
+    background: var(--card-bg-dark);
+    padding: 25px;
+    border-radius: 12px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    transform: scale(0.95);
+    animation: modalPop 0.3s forwards;
+}
+
+@keyframes modalPop {
+    to { transform: scale(1); }
+}
+
+#modalTitle {
+    color: var(--gold);
+    margin-top: 0;
+    font-size: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+#modalOptions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.opt-btn {
+    background-color: var(--gold);
+    color: var(--old-brown);
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 0.9rem;
+    margin: 4px; 
+}
+
+#itemNote {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--search-bg);
+    color: var(--light-text);
+    resize: vertical;
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+#modalConfirm {
+    width: 100%;
+    padding: 12px;
+}
+
+
+/* ================================================= */
+/* 💀 10. تأثير هيكل التحميل (Skeleton Loading) */
+/* ================================================= */
+.skeleton-card {
+    background-color: var(--search-bg);
+    border-radius: 12px;
+    height: 120px; 
+    width: 100%;
+    margin-bottom: 20px;
+    background: linear-gradient(to right, #222 8%, #333 18%, #222 33%);
+    background-size: 800px 104px;
+    position: relative;
+    animation: loading-pulse 1.5s infinite linear;
+}
+
+@keyframes loading-pulse {
+    0% {
+        background-position: -468px 0;
+    }
+    100% {
+        background-position: 468px 0;
+    }
+}
+/* ================================================= */
+/* 🍏 11. زر الآيفون وقائمة التعليمات (التصميم الجديد) */
+/* ================================================= */
+
+/* 1. تنسيق الزر الذهبي في الأعلى (الكبسولة) */
+.ios-btn {
+    background: rgba(195, 158, 106, 0.1); /* خلفية شفافة ذهبية */
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 6px 14px;
+    border-radius: 50px; /* حواف دائرية بالكامل */
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-right: 10px;
+    display: none; /* مخفي افتراضياً، يظهر بالجافاسكربت */
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+}
+
+.ios-btn:hover {
+    background: var(--gold);
+    color: #000;
+    transform: translateY(-2px); /* حركة طفيفة عند التمرير */
+}
+
+/* 2. القائمة المنزلقة من الأسفل (Sheet) */
+.ios-install-banner {
+    display: none; /* مخفي افتراضياً */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%; /* عرض كامل */
+    background: #1A1512; /* لون داكن مطابق للهوية */
+    border-top: 2px solid var(--gold); /* خط ذهبي في الأعلى */
+    border-radius: 20px 20px 0 0; /* تدوير الزوايا العلوية فقط */
+    padding: 30px 20px 40px;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8);
+    z-index: 10001; /* فوق كل العناصر */
+    text-align: center;
+    
+    /* حركة الانزلاق من الأسفل */
+    animation: slideUpIOS 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+@keyframes slideUpIOS {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* تنسيق قائمة الخطوات */
+.ios-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto 25px;
+    display: inline-block;
+    text-align: right;
+    max-width: 300px;
+    width: 100%;
+}
+
+.ios-steps li {
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+    color: #eee;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ios-icon {
+    font-size: 1.3rem;
+    background: rgba(255,255,255,0.1);
+    padding: 5px;
+    border-radius: 8px;
+    vertical-align: middle;
+}
+
+/* زر "مفهوم" لإغلاق القائمة */
+.ios-install-banner button {
+    background: var(--gold);
+    color: #000;
+    border: none;
+    padding: 12px 40px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    max-width: 300px;
+    transition: background 0.2s;
+}
+
+.ios-install-banner button:hover {
+    background: #a07c4c;
+  }
