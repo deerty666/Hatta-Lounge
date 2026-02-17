@@ -716,6 +716,7 @@ function renderMenu(sectionName, searchTerm = ''){
             ${bestSellerBadge} 
             <h3>${item.name}</h3>
             <p>${displayedSection}</p>
+            ${item.description ? `<div class="item-desc">${item.description}</div>` : ''}
             <div class="price">${priceDisplay}</div>
             <button class="add-btn" ${buttonAttributes}>${buttonText}</button> 
         `;
