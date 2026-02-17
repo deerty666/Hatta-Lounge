@@ -61,12 +61,12 @@ const menuData = [
     availableIn: ['branch1','branch2','branch3'],
     isMultiOption: true, // 🔥 مهم عشان يعرف انه اختيارات متعددة
     options:[
-        {name:"رز شعبي", price:4},
-        {name:"رز بشاور", price:5},
-        {name:"رز مندي", price:5},
-        {name:"سلطة خضار", price:3},
+        {name:"عصير", price:2},
         {name:"لبن", price:2},
-        {name:"تمر", price:2}
+        {name:"شوربة", price:2},
+        {name:"فاكهة", price:2},
+        {name:"سمبوسه", price:1.50},
+        {name:"ماء", price:0.50}
     ]
 },
             // الوجبة 3: نص شواية سادة
