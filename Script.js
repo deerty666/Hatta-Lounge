@@ -52,6 +52,23 @@ const menuData = [
                 {name:"رز مندي", price:2},
                 {name:"رز مثلوثه", price:2}
             ]},
+            {
+    id:"ram1",
+    img:"sh10.webp", 
+    name:"وجبة رمضان ربع دجاج",
+    basePrice:8,
+    isBestSeller: true,
+    availableIn: ['branch1','branch2','branch3'],
+    isMultiOption: true, // 🔥 مهم عشان يعرف انه اختيارات متعددة
+    options:[
+        {name:"رز شعبي", price:4},
+        {name:"رز بشاور", price:5},
+        {name:"رز مندي", price:5},
+        {name:"سلطة خضار", price:3},
+        {name:"لبن", price:2},
+        {name:"تمر", price:2}
+    ]
+}
             // الوجبة 3: نص شواية سادة
             {id:"sh3", img:"sh10.webp", name:"ربع دجاج ",
              basePrice:15,
@@ -528,7 +545,7 @@ const processedMenuData = processMenuData(menuData);
 
 
 /* ====== متغيرات PWA و SearchBar ====== */
-let deferredPrompt = null;
+let selectedOptions = [];
 let currentSection = processedMenuData[0].section; // استخدام البيانات المعالجة لتحديد القسم الحالي
 const installAppBtn = document.getElementById('installAppBtn');
 const searchBar = document.getElementById('searchBar');
@@ -734,33 +751,47 @@ function renderMenu(sectionName, searchTerm = ''){
 // 🚀 MODIFIED: إضافة itemImage للمُعاملات
 function showOptions(item, skipOptions = false, itemImage = null){ 
     selectedItem = item;
-    selectedOption = item.options.length > 0 ? item.options[0] : null; 
-    selectedItemImage = itemImage; // 🚀 NEW LINE: قم بتخزين الصورة هنا
+    selectedItemImage = itemImage;
+    selectedOptions = [];
 
     modalTitle.innerText = item.name;
-    itemNoteInput.value = ''; 
+    itemNoteInput.value = '';
 
-    if(skipOptions || item.options.length <= 1 && item.options[0].name === ""){
+    if(skipOptions || item.options.length === 0){
         modalOptions.style.display = 'none';
     } else {
         modalOptions.style.display = 'block';
         modalOptions.innerHTML='';
+
         item.options.forEach(opt=>{
-            const b=document.createElement('button');
-            b.className='opt-btn';
-            if(opt === selectedOption) b.style.backgroundColor = '#a07c4c'; 
-            b.innerText = opt.name + (opt.price>0?` +${opt.price} ريال`:'');
-            b.onclick = ()=>{
-                selectedOption=opt;
-                document.querySelectorAll('#modalOptions .opt-btn').forEach(btn => btn.style.backgroundColor = 'var(--gold)');
-                b.style.backgroundColor = '#a07c4c';
+            const wrapper = document.createElement('label');
+            wrapper.style.display = "flex";
+            wrapper.style.alignItems = "center";
+            wrapper.style.gap = "8px";
+            wrapper.style.marginBottom = "8px";
+
+            const checkbox = document.createElement('input');
+            checkbox.type = "checkbox";
+
+            checkbox.onchange = () => {
+                if(checkbox.checked){
+                    selectedOptions.push(opt);
+                } else {
+                    selectedOptions = selectedOptions.filter(o => o.name !== opt.name);
+                }
             };
-            modalOptions.appendChild(b);
+
+            const text = document.createElement('span');
+            text.innerText = opt.name + (opt.price > 0 ? ` +${opt.price} ريال` : '');
+
+            wrapper.appendChild(checkbox);
+            wrapper.appendChild(text);
+            modalOptions.appendChild(wrapper);
         });
     }
+
     optionModal.style.display='flex';
 }
-
 
 /* ====== Confirm modal ====== */
 optionModal.addEventListener('click', (e) => {
