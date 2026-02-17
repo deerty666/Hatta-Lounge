@@ -68,7 +68,7 @@ const menuData = [
         {name:"لبن", price:2},
         {name:"تمر", price:2}
     ]
-}
+},
             // الوجبة 3: نص شواية سادة
             {id:"sh3", img:"sh10.webp", name:"ربع دجاج ",
              basePrice:15,
@@ -795,37 +795,37 @@ function showOptions(item, skipOptions = false, itemImage = null){
 
 /* ====== Confirm modal ====== */
 optionModal.addEventListener('click', (e) => {
-    if (e.target.id === 'optionModal') {
-        optionModal.style.display = 'none';
-    }
-});
-
-
 modalConfirm.onclick = ()=>{
     if(selectedItem){
-        const note = itemNoteInput.value.trim();
-        const optionToSend = selectedOption || (selectedItem.options.length > 0 ? selectedItem.options[0] : null);
 
-        addToCart({...selectedItem, qty:1, selectedOption:optionToSend, note: note || null}); 
-        
-        // 🚀 NEW: استدعاء تأثير الطيران بعد الإضافة
+        const note = itemNoteInput.value.trim();
+
+        if(selectedItem.isMultiOption){
+
+            addToCart({
+                ...selectedItem,
+                qty:1,
+                selectedOptions:selectedOptions,
+                note: note || null
+            });
+
+        } else {
+
+            const optionToSend = selectedOption || 
+                (selectedItem.options.length > 0 ? selectedItem.options[0] : null);
+
+            addToCart({
+                ...selectedItem,
+                qty:1,
+                selectedOption:optionToSend,
+                note: note || null
+            });
+        }
+
         if (selectedItemImage) {
             flyToCart(selectedItemImage);
         }
 
-        const originalText = modalConfirm.innerText;
-        modalConfirm.innerText = "تمت الإضافة! ✅";
-        modalConfirm.style.backgroundColor = '#4CAF50';
-        modalConfirm.disabled = true;
-
-        setTimeout(() => {
-            modalConfirm.innerText = originalText;
-            modalConfirm.style.backgroundColor = 'var(--gold)'; 
-            modalConfirm.disabled = false;
-            optionModal.style.display='none';
-        }, 1200);
-
-    } else {
         optionModal.style.display='none';
     }
 };
@@ -873,7 +873,17 @@ function renderCart(){
     const branchDeliveryFee = currentBranch.deliveryFee || 0; // رسوم التوصيل من بيانات الفرع
 
     cart.forEach((it,idx)=>{
-        const price = (it.basePrice || 0) + (it.selectedOption?it.selectedOption.price:0);
+        let optionsTotal = 0;
+
+if(it.selectedOptions && it.selectedOptions.length > 0){
+    optionsTotal += it.selectedOptions.reduce((sum, opt) => sum + opt.price, 0);
+}
+
+if(it.selectedOption){
+    optionsTotal += it.selectedOption.price;
+}
+
+const price = (it.basePrice || 0) + optionsTotal;
         const row=document.createElement('div');
         row.className='cart-row';
 
@@ -987,7 +997,17 @@ sendWhatsapp.addEventListener('click', () => {
     let subtotal = 0;
 
     cart.forEach(it=>{
-        const price=(it.basePrice || 0)+(it.selectedOption?it.selectedOption.price:0);
+        let optionsTotal = 0;
+
+if(it.selectedOptions && it.selectedOptions.length > 0){
+    optionsTotal += it.selectedOptions.reduce((sum, opt) => sum + opt.price, 0);
+}
+
+if(it.selectedOption){
+    optionsTotal += it.selectedOption.price;
+}
+
+const price = (it.basePrice || 0) + optionsTotal;
         const optionText = it.selectedOption && it.selectedOption.name !== 'نفر' && it.selectedOption.name !== 'طبق' && it.selectedOption.name !== 'عبوة' ? ` — ${it.selectedOption.name}` : '';
         const noteText = it.note ? ` (ملاحظة: ${it.note})` : '';
 
