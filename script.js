@@ -95,14 +95,14 @@ phone = "966" + phone;
 }
 
 // نوع الطلب
-let type = orderType==="delivery" ? "🚗 توصيل" : "🏠 استلام";
+let type = orderType==="delivery" ? 🚙 توصيل" : "🏠 استلام";
 
 // الوقت
 let time=document.getElementById("custTime").value;
 let timeText = time ? new Date(time).toLocaleString('ar-SA') : "-";
 
 // الرسالة
-let text = `🧾 طلب جديد - سحايب ديرتي\n\n`;
+let text = `🧾 طلب حجز - سحايب ديرتي\n\n`;
 
 text += `📦 نوع الطلب: ${type}\n`;
 text += `👤 العميل: ${document.getElementById("custName").value||"-"}\n`;
