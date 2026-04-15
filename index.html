@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سحايب ديرتي POS</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>سحايب ديرتي</h1>
+    <button onclick="openAdmin()">⚙️ إدارة</button>
+</header>
+
+<div class="container">
+
+<!-- القائمة -->
+<div class="menu">
+    <h3>📋 القائمة</h3>
+    <div id="menuContainer"></div>
+</div>
+
+<!-- الفاتورة -->
+<div class="cart" id="printArea">
+
+    <img src="logo.png" class="logo">
+
+    <input id="custName" placeholder="اسم العميل">
+    <input id="custPhone" placeholder="رقم الجوال">
+    <input id="custAddress" placeholder="العنوان">
+
+    <div class="types">
+        <button onclick="setOrderType('takeaway')" id="takeawayBtn" class="active">استلام</button>
+        <button onclick="setOrderType('delivery')" id="deliveryBtn">توصيل</button>
+    </div>
+
+    <div id="deliveryBox" style="display:none;">
+        <input id="deliveryFee" type="number" value="15" onchange="updateTotal()">
+    </div>
+
+    <div id="cartItems"></div>
+
+    <h2 id="total">0 ر.س</h2>
+
+    <button onclick="printReceipt()">🖨️ طباعة</button>
+    <button onclick="sendToWhatsApp()">📲 واتساب</button>
+    <button onclick="clearCart()">🗑️ جديد</button>
+
+</div>
+
+</div>
+
+<!-- الإدارة -->
+<div id="admin" class="modal">
+<div class="box">
+
+<h3>الإدارة</h3>
+
+<input id="newCat" placeholder="قسم جديد">
+<button onclick="addCategory()">إضافة قسم</button>
+
+<hr>
+
+<select id="catSelect"></select>
+<input id="newItemName" placeholder="اسم الصنف">
+<input id="newItemPrice" type="number" placeholder="السعر">
+<button onclick="addItem()">إضافة صنف</button>
+
+<hr>
+
+<div id="adminList"></div>
+
+<button onclick="closeAdmin()">إغلاق</button>
+
+</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
