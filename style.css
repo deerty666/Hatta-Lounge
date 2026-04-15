@@ -56,3 +56,35 @@ font-size:15px;
 font-weight:bold;
 }
 }
+/* 👇 الأقسام مربعات احترافية */
+#menuContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 12px;
+  padding: 10px;
+}
+
+/* 👇 شكل القسم */
+.category-title {
+  background: linear-gradient(135deg, #0f2027, #2c5364);
+  color: white;
+  padding: 18px 10px;
+  border-radius: 15px;
+  text-align: center;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  transition: 0.2s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.category-title:active {
+  transform: scale(0.95);
+}
+
+/* 👇 الأيقونة */
+.category-icon {
+  font-size: 26px;
+  display: block;
+  margin-bottom: 5px;
+}
