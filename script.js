@@ -114,6 +114,8 @@ function printReceipt(){
 const qr="https://deerty666.github.io/menu.html?branch=branch1";
 
 let content=`
+<div style="width:72mm;font-family:tahoma;direction:rtl;text-align:right">
+
 <div style="text-align:center">
 <img src="logo.png" style="width:70px"><br>
 <b>سحايب ديرتي</b><br>
@@ -142,13 +144,13 @@ content+=`
 <span>${total} ر.س</span>
 </div>
 <div style="border-bottom:1px dotted #000;margin:3px 0;"></div>
-${i.note ? `<div>📝 ${i.note}</div>` : ""}
+${i.note ? `<div style="font-size:11px">📝 ${i.note}</div>` : ""}
 `;
 });
 
 content+=`
 <hr>
-<div style="text-align:center;font-size:18px">
+<div style="text-align:center;font-size:18px;font-weight:bold">
 ${document.getElementById("total").textContent}
 </div>
 
@@ -161,15 +163,21 @@ ${document.getElementById("total").textContent}
 <div style="text-align:center;font-size:12px">
 شكراً لثقتكم ❤️
 </div>
+
+</div>
 `;
 
-document.getElementById("printArea").innerHTML=content;
+let old = document.body.innerHTML;
+
+document.body.innerHTML = content;
 window.print();
-location.reload();
+
+document.body.innerHTML = old;
+
+// ترجع السلة بدون حذف
+renderCart();
+renderMenu();
 }
-
-function clearCart(){cart=[];renderCart();}
-
 /* الإدارة */
 function openAdmin(){document.getElementById("admin").style.display="block";renderAdmin();}
 function closeAdmin(){document.getElementById("admin").style.display="none";}
