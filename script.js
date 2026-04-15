@@ -80,38 +80,42 @@ updateTotal();
 /* واتساب */
 function sendToWhatsApp(){
 
-let phone=document.getElementById("custPhone").value.trim().replace(/\D/g,'');
+let inputPhone = document.getElementById("custPhone").value.trim();
 
-// تحويل الرقم تلقائي للسعودي
-if(phone.startsWith("05")) phone="966"+phone.substring(1);
-if(phone.startsWith("5")) phone="966"+phone;
-if(!phone.startsWith("966")) phone="966"+phone;
+// تنظيف الرقم
+let phone = inputPhone.replace(/\D/g,'');
+
+// تحويل تلقائي (بدون ما المستخدم يحس)
+if(phone.startsWith("05")){
+phone = "966" + phone.substring(1);
+}else if(phone.startsWith("5")){
+phone = "966" + phone;
+}else if(!phone.startsWith("966")){
+phone = "966" + phone;
+}
 
 // نوع الطلب
 let type = orderType==="delivery" ? "🚗 توصيل" : "🏠 استلام";
 
-// التاريخ
+// الوقت
 let time=document.getElementById("custTime").value;
 let timeText = time ? new Date(time).toLocaleString('ar-SA') : "-";
 
-// نص الرسالة
-let text = `🧾 *طلب جديد - سحايب ديرتي*\n\n`;
+// الرسالة
+let text = `🧾 طلب جديد - سحايب ديرتي\n\n`;
 
-text += `📦 *نوع الطلب:* ${type}\n`;
-text += `👤 *العميل:* ${document.getElementById("custName").value||"-"}\n`;
-text += `📞 *الجوال:* ${phone}\n`;
-text += `📍 *العنوان:* ${document.getElementById("custAddress").value||"-"}\n`;
-text += `⏰ *الموعد:* ${timeText}\n`;
+text += `📦 نوع الطلب: ${type}\n`;
+text += `👤 العميل: ${document.getElementById("custName").value||"-"}\n`;
+text += `📞 الجوال: ${inputPhone}\n`; // 👈 يظهر نفس الرقم بدون 966
+text += `📍 العنوان: ${document.getElementById("custAddress").value||"-"}\n`;
+text += `⏰ الموعد: ${timeText}\n`;
 
 text += `\n━━━━━━━━━━━━\n`;
-text += `🍽️ *الطلب:*\n\n`;
 
-// الأصناف مع السعر
 cart.forEach(i=>{
 let total=i.price*i.qty;
 
-text += `▪️ ${i.name} × ${i.qty}\n`;
-text += `💵 ${total} ر.س\n`;
+text += `▪️ ${i.name} × ${i.qty} = ${total} ر.س\n`;
 
 if(i.note){
 text += `📝 ${i.note}\n`;
@@ -120,27 +124,21 @@ text += `📝 ${i.note}\n`;
 text += `\n`;
 });
 
-text += `━━━━━━━━━━━━\n`;
-
-// رسوم التوصيل
 if(orderType==="delivery"){
 let fee=parseFloat(document.getElementById("deliveryFee").value)||0;
 text += `🚚 رسوم التوصيل: ${fee} ر.س\n`;
 }
 
-// الإجمالي
-text += `💰 *الإجمالي:* ${document.getElementById("total").textContent}\n`;
+text += `━━━━━━━━━━━━\n`;
+text += `💰 الإجمالي: ${document.getElementById("total").textContent}\n`;
 
 text += `━━━━━━━━━━━━\n`;
-
-// رابط المنيو
-text += `📲 اطلب عبر الموقع بكل سهوله :\n`;
-text += `https://deerty666.github.io/menu.html?branch=branch1`;
+text += `📲 https://deerty666.github.io/menu.html?branch=branch1`;
 
 // فتح واتساب
-window.location.href="https://wa.me/"+phone+"?text="+encodeURIComponent(text);
+let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(text);
+window.open(url, "_blank");
 }
-
 /* الطباعة */
 function printReceipt(){
 
