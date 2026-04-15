@@ -139,11 +139,11 @@ cart.forEach(i=>{
 let total=i.price*i.qty;
 
 content+=`
-<div style="display:flex;justify-content:space-between;">
+<div style="display:flex;justify-content:space-between">
 <span>${i.name} × ${i.qty}</span>
 <span>${total} ر.س</span>
 </div>
-<div style="border-bottom:1px dotted #000;margin:3px 0;"></div>
+<div style="border-bottom:1px dashed #000;margin:4px 0;"></div>
 ${i.note ? `<div style="font-size:11px">📝 ${i.note}</div>` : ""}
 `;
 });
@@ -167,16 +167,13 @@ ${document.getElementById("total").textContent}
 </div>
 `;
 
-let old = document.body.innerHTML;
 
-document.body.innerHTML = content;
-window.print();
-
-document.body.innerHTML = old;
-
-// ترجع السلة بدون حذف
-renderCart();
-renderMenu();
+// 🔥 الحل الصحيح بدون تخريب الصفحة
+let w = window.open('', '', 'width=300,height=600');
+w.document.write(content);
+w.document.close();
+w.print();
+w.close();
 }
 /* الإدارة */
 function openAdmin(){document.getElementById("admin").style.display="block";renderAdmin();}
