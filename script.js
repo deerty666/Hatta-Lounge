@@ -173,6 +173,8 @@ function printReceipt(){
 const qr="https://deerty666.github.io/menu.html?branch=branch1";
 
 let content=`
+<div style="width:72mm;margin:auto;font-family:tahoma;direction:rtl;text-align:right">
+
 <div style="text-align:center">
 <img src="logo.png?v=2" style="width:70px"><br>
 <b>سحايب ديرتي</b><br>
@@ -181,7 +183,6 @@ let content=`
 </div>
 
 <hr>
-`;
 
 👤 ${document.getElementById("custName").value||"-"}<br>
 📞 ${document.getElementById("custPhone").value||"-"}<br>
