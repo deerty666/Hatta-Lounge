@@ -173,16 +173,15 @@ function printReceipt(){
 const qr="https://deerty666.github.io/menu.html?branch=branch1";
 
 let content=`
-<div style="width:72mm;font-family:tahoma;direction:rtl;text-align:right">
-
 <div style="text-align:center">
-<img src="logo.png" style="width:70px"><br>
+<img src="logo.png?v=2" style="width:70px"><br>
 <b>سحايب ديرتي</b><br>
 حجز مسبق<br>
 📞 0112020203
 </div>
 
 <hr>
+`;
 
 👤 ${document.getElementById("custName").value||"-"}<br>
 📞 ${document.getElementById("custPhone").value||"-"}<br>
