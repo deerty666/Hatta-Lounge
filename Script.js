@@ -1406,3 +1406,125 @@ async function initSmartPushSystem() {
 
 // تشغيل النظام فور جاهزية الصفحة
 document.addEventListener("DOMContentLoaded", initSmartPushSystem);
+//////////////////////////////////////////////////////
+// 🧠 إدارة الأقسام (FIX كامل)
+//////////////////////////////////////////////////////
+
+function openAdminModal() {
+    document.getElementById('adminModal').style.display = 'flex';
+    renderAdminCategories();
+    renderAdminSelect();
+}
+
+function closeAdminModal() {
+    document.getElementById('adminModal').style.display = 'none';
+}
+
+// عرض الأقسام في لوحة الإدارة
+function renderAdminCategories() {
+    const container = document.getElementById('adminCategoriesList');
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    menu.categories.forEach(cat => {
+
+        const div = document.createElement('div');
+        div.style.cssText = `
+            background:#f5f5f5;
+            padding:10px;
+            margin:6px 0;
+            border-radius:8px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        `;
+
+        div.innerHTML = `
+            <span>${cat}</span>
+            <button onclick="deleteCategory('${cat}')" 
+            style="background:red;color:white;border:none;padding:5px 10px;border-radius:5px;">
+            حذف
+            </button>
+        `;
+
+        container.appendChild(div);
+    });
+}
+
+// تحديث قائمة اختيار القسم
+function renderAdminSelect() {
+    const select = document.getElementById('adminCatSelect');
+    if (!select) return;
+
+    select.innerHTML = '';
+
+    menu.categories.forEach(cat => {
+        const opt = document.createElement('option');
+        opt.value = cat;
+        opt.textContent = cat;
+        select.appendChild(opt);
+    });
+}
+
+// إضافة قسم
+function addCategory() {
+    const input = document.getElementById('newCatName');
+    if (!input) return;
+
+    const name = input.value.trim();
+    if (!name) return alert("اكتب اسم القسم");
+
+    if (menu.categories.includes(name)) {
+        return alert("القسم موجود مسبقاً");
+    }
+
+    menu.categories.push(name);
+    saveMenu();
+
+    input.value = '';
+
+    renderMenu();
+    renderAdminCategories();
+    renderAdminSelect();
+}
+
+// حذف قسم
+function deleteCategory(cat) {
+    if (!confirm(`حذف القسم: ${cat} ؟`)) return;
+
+    menu.categories = menu.categories.filter(c => c !== cat);
+    menu.items = menu.items.filter(i => i.category !== cat);
+
+    saveMenu();
+
+    renderMenu();
+    renderAdminCategories();
+    renderAdminSelect();
+}
+
+// إضافة صنف من الإدارة
+function addItemFromAdmin() {
+    const name = document.getElementById('newItemNameAdmin')?.value.trim();
+    const price = parseFloat(document.getElementById('newItemPriceAdmin')?.value);
+    const cat = document.getElementById('adminCatSelect')?.value;
+
+    if (!name || !price || !cat) {
+        return alert("املأ جميع الحقول");
+    }
+
+    menu.items.push({
+        id: Date.now(),
+        name,
+        price,
+        category: cat
+    });
+
+    saveMenu();
+
+    document.getElementById('newItemNameAdmin').value = '';
+    document.getElementById('newItemPriceAdmin').value = '';
+
+    renderMenu();
+    renderAdminCategories();
+}
