@@ -176,69 +176,94 @@ function sendToWhatsApp() {
 }
 
 /* الطباعة */
-function printReceipt(){
+function printReceipt() {
+    const qr = "https://deerty666.github.io/menu.html?branch=branch1";
 
-const qr="https://deerty666.github.io/menu.html?branch=branch1";
+    let content = `
+    <html>
+    <head>
+        <title>طباعة الفاتورة</title>
+        <style>
+            @media print {
+                body { margin: 0; padding: 0; }
+                @page { margin: 0; }
+            }
+            body { font-family: 'Tahoma', sans-serif; direction: rtl; text-align: right; padding: 10px; }
+            .receipt-container { width: 72mm; margin: auto; }
+            .center { text-align: center; }
+            .flex-space { display: flex; justify-content: space-between; margin: 2px 0; }
+            .dashed-line { border-bottom: 1px dashed #000; margin: 4px 0; }
+            .logo { width: 70px; height: auto; }
+            .qr-code { width: 120px; height: auto; }
+        </style>
+    </head>
+    <body>
+        <div class="receipt-container">
+            <div class="center">
+                <img src="logo.png?v=${new Date().getTime()}" class="logo"><br>
+                <b>سحايب ديرتي</b><br>
+                حجز مسبق<br>
+                📞 0112020203
+            </div>
 
-let content=`
-<div style="width:72mm;margin:auto;font-family:tahoma;direction:rtl;text-align:right">
+            <hr>
 
-<div style="text-align:center">
-<img src="logo.png?v=2" style="width:70px"><br>
-<b>سحايب ديرتي</b><br>
-حجز مسبق<br>
-📞 0112020203
-</div>
+            👤 ${document.getElementById("custName").value || "-"}<br>
+            📞 ${document.getElementById("custPhone").value || "-"}<br>
+            📍 ${document.getElementById("custAddress").value || "-"}<br>
 
-<hr>
+            ${document.getElementById("custTime").value ?
+            "⏰ " + new Date(document.getElementById("custTime").value).toLocaleString('ar-SA') + "<br>" : ""}
 
-👤 ${document.getElementById("custName").value||"-"}<br>
-📞 ${document.getElementById("custPhone").value||"-"}<br>
-📍 ${document.getElementById("custAddress").value||"-"}<br>
+            <hr>
+    `;
 
-${document.getElementById("custTime").value ?
-"⏰ "+new Date(document.getElementById("custTime").value).toLocaleString('ar-SA')+"<br>" : ""}
+    cart.forEach(i => {
+        let total = i.price * i.qty;
+        content += `
+            <div class="flex-space">
+                <span>${i.name} × ${i.qty}</span>
+                <span>${total} ر.س</span>
+            </div>
+            <div class="dashed-line"></div>
+            ${i.note ? `<div style="font-size:11px">📝 ${i.note}</div>` : ""}
+        `;
+    });
 
-<hr>
-`;
+    content += `
+            <hr>
+            <div class="center" style="font-size:18px;font-weight:bold">
+                ${document.getElementById("total").textContent}
+            </div>
 
-cart.forEach(i=>{
-let total=i.price*i.qty;
+            <hr>
 
-content+=`
-<div style="display:flex;justify-content:space-between">
-<span>${i.name} × ${i.qty}</span>
-<span>........ ${total} ر.س</span>
-</div>
-<div style="border-bottom:1px dashed #000;margin:4px 0;"></div>
-${i.note ? `<div style="font-size:11px">📝 ${i.note}</div>` : ""}
-`;
-});
+            <div class="center">
+                <img src="qr.png?v=${new Date().getTime()}" class="qr-code">
+            </div>
 
-content+=`
-<hr>
-<div style="text-align:center;font-size:18px;font-weight:bold">
-${document.getElementById("total").textContent}
-</div>
+            <div class="center" style="font-size:12px">
+                شكراً لثقتكم ❤️
+            </div>
+        </div>
 
-<hr>
+        <script>
+            // هذا الجزء هو السر: ينتظر تحميل كل الصور قبل فتح نافذة الطباعة
+            window.onload = function() {
+                setTimeout(function() {
+                    window.print();
+                    window.close();
+                }, 500); // تأخير بسيط لضمان المعالجة
+            };
+        </script>
+    </body>
+    </html>
+    `;
 
-<div style="text-align:center">
-<img src="qr.png?v=1" style="width:120px">
-</div>
-
-<div style="text-align:center;font-size:12px">
-شكراً لثقتكم ❤️
-</div>
-
-</div>
-`;
-
-let w=window.open('','','width=300,height=600');
-w.document.write(content);
-w.document.close();
-w.print();
-w.close();
+    let w = window.open('', '', 'width=600,height=800');
+    w.document.open();
+    w.document.write(content);
+    w.document.close();
 }
 
 /* الإدارة */
