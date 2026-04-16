@@ -125,7 +125,7 @@ function sendToWhatsApp() {
     let inputPhone = document.getElementById("custPhone").value.trim();
     let phone = inputPhone.replace(/\D/g, '');
 
-    // تجهيز رقم الهاتف الدولي
+    // تحويل الرقم للصيغة الدولية
     if (phone.startsWith("05")) phone = "966" + phone.substring(1);
     else if (phone.startsWith("5")) phone = "966" + phone;
     else if (!phone.startsWith("966")) phone = "966" + phone;
@@ -137,23 +137,19 @@ function sendToWhatsApp() {
 
     let type = orderType === "delivery" ? "🚗 توصيل" : "🏠 استلام";
 
-    // صياغة نص الرسالة باستخدام الرموز المباشرة 🧾
+    // صياغة الرسالة - تأكد أن محررك يدعم UTF-8
     let text = `🧾 سحايب ديرتي - فاتورة حجز\n\n`;
     text += `👤 العميل: ${name}\n`;
     text += `📦 نوع الطلب: ${type}\n`;
     text += `📍 العنوان: ${address}\n`;
     text += `⏰ الموعد: ${timeText}\n`;
-
     text += `━━━━━━━━━━━━\n`;
 
     cart.forEach(i => {
         let total = i.price * i.qty;
         text += `▪️ ${i.name}\n`;
         text += `العدد: ${i.qty} | السعر: ${total} ر.س\n`;
-
-        if (i.note) {
-            text += `📝 ملاحظة: ${i.note}\n`;
-        }
+        if (i.note) text += `📝 ملاحظة: ${i.note}\n`;
         text += `\n`;
     });
 
@@ -163,15 +159,15 @@ function sendToWhatsApp() {
     }
 
     text += `━━━━━━━━━━━━\n`;
-    text += `💰 الإجمالي النهائي: ${document.getElementById("total").textContent}\n`;
-    text += `\n💙 شكراً لتعاملكم معنا\n\n`;
-    text += `📱 لطلب اسرع في المرات القادمة ثبت تطبيقنا القائمة:\n`;
-    text += `https://deerty666.github.io/menu.html?branch=branch1`;
+    text += `💰 الإجمالي النهائي: ${document.getElementById("total").textContent}\n\n`;
+    text += `💙 شكراً لتعاملكم معنا\n\n`;
+    text += `📱 لطلب اسهل وأسرع ثبت التطبيق:\nhttps://deerty666.github.io/menu.html?branch=branch1`;
 
-    // استخدام encodeURIComponent للتأكد من إرسال النص والرموز بشكل سليم
+    // الرابط السحري
     let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(text);
     window.location.href = url;
 }
+
 
 /* الطباعة */
 function printReceipt(){
