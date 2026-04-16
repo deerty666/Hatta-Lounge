@@ -177,14 +177,19 @@ function sendToWhatsApp() {
 
 /* الطباعة */
 function printReceipt() {
+function printReceipt() {
+    const qr = "https://deerty666.github.io/menu.html?branch=branch1";
+
     let content = `
     <html>
     <head>
+        <title>طباعة الفاتورة</title>
         <style>
-            body { font-family: 'Tahoma', sans-serif; direction: rtl; text-align: right; padding: 10px; }
+            body { font-family: 'Tahoma', sans-serif; direction: rtl; text-align: right; padding: 10px; margin: 0; }
             .receipt-container { width: 72mm; margin: auto; }
             .center { text-align: center; }
             .flex-space { display: flex; justify-content: space-between; margin: 2px 0; }
+            .dashed-line { border-bottom: 1px dashed #000; margin: 4px 0; }
             .logo { width: 70px; height: auto; }
             .qr-code { width: 120px; height: auto; }
             @media print { body { margin: 0; } }
@@ -195,27 +200,57 @@ function printReceipt() {
             <div class="center">
                 <img src="logo.png" class="logo"><br>
                 <b>سحايب ديرتي</b><br>
-                حجز مسبق
+                حجز مسبق<br>
+                📞 0112020203
             </div>
+
             <hr>
+
             👤 ${document.getElementById("custName").value || "-"}<br>
             📞 ${document.getElementById("custPhone").value || "-"}<br>
+            📍 ${document.getElementById("custAddress").value || "-"}<br>
+
+            ${document.getElementById("custTime").value ?
+            "⏰ " + new Date(document.getElementById("custTime").value).toLocaleString('ar-SA') : ""}
+
             <hr>
-            ${/* ... باقي بيانات السلة ... */ ""}
+    `;
+
+    // جزء إضافة أصناف السلة
+    cart.forEach(i => {
+        let total = i.price * i.qty;
+        content += `
+            <div class="flex-space">
+                <span>${i.name} × ${i.qty}</span>
+                <span>${total} ر.س</span>
+            </div>
+            <div class="dashed-line"></div>
+            ${i.note ? `<div style="font-size:11px">📝 ${i.note}</div>` : ""}
+        `;
+    });
+
+    content += `
+            <hr>
+            <div class="center" style="font-size:18px;font-weight:bold">
+                ${document.getElementById("total").textContent}
+            </div>
+
+            <hr>
+
             <div class="center">
                 <img src="qr.png" class="qr-code">
+            </div>
+
+            <div class="center" style="font-size:12px">
+                شكراً لثقتكم ❤️
             </div>
         </div>
 
         <script>
-            // نستخدم دالة التأكد من الصور بدلاً من التوقيت الثابت
-            function startPrint() {
+            window.onload = function() {
                 window.print();
-                window.close();
-            }
-
-            // إذا كانت الصور محملة مسبقاً يطبع فوراً، وإلا ينتظر أقل وقت ممكن
-            window.onload = startPrint;
+                setTimeout(() => { window.close(); }, 500);
+            };
         </script>
     </body>
     </html>
