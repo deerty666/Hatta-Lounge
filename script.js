@@ -131,7 +131,7 @@ function sendToWhatsApp() {
     else if (phone.startsWith("5")) phone = "966" + phone;
     else if (!phone.startsWith("966")) phone = "966" + phone;
 
-    let name = document.getElementById("custName").value.trim() || "ضيف";
+    let name = document.getElementById("custName").value.trim() || "لم يحدد";
     let address = document.getElementById("custAddress").value.trim() || "لم يحدد";
     let time = document.getElementById("custTime").value;
     let timeText = time ? new Date(time).toLocaleString('ar-SA') : "-";
@@ -139,7 +139,7 @@ function sendToWhatsApp() {
     // استخدام الرموز مباشرة (تظهر بوضوح في GitHub و WhatsApp)
     let type = (typeof orderType !== 'undefined' && orderType === "delivery") ? "🚗 توصيل" : "🏠 استلام";
 
-    let text = `🧾 *سحايب ديرتي - فاتورة حجز*\n\n`;
+    let text = `🧾 *مطعم ديرتي - فاتورة ت*\n\n`;
     text += `👤 *العميل:* ${name}\n`;
     text += `📦 *نوع الطلب:* ${type}\n`;
     text += `📍 *العنوان:* ${address}\n`;
