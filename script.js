@@ -223,7 +223,7 @@ ${document.getElementById("total").textContent}
 <hr>
 
 <div style="text-align:center">
-<img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(qr)}">
+<img src="qr.png?v=1" style="width:120px">
 </div>
 
 <div style="text-align:center;font-size:12px">
