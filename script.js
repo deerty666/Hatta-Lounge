@@ -243,7 +243,7 @@ function printReceipt() {
             </div>
 
             <div class="center" style="font-size:12px">
-                شكراً لثقتكم ❤️
+                 حمل التطبيق وطلب بكل سهوله❤️
             </div>
         </div>
 
