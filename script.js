@@ -178,74 +178,72 @@ function sendToWhatsApp() {
 /* الطباعة */
 
 function printReceipt() {
-    const qr = "https://deerty666.github.io/menu.html?branch=branch1";
+    let cName = document.getElementById("custName").value || "-";
+    let cPhone = document.getElementById("custPhone").value || "-";
+    let cAddr = document.getElementById("custAddress").value || "-";
+    let cTime = document.getElementById("custTime").value;
+    let timeText = cTime ? new Date(cTime).toLocaleString('ar-SA') : "";
+    let totalVal = document.getElementById("total").textContent;
 
     let content = `
     <html>
     <head>
-        <title>طباعة الفاتورة</title>
         <style>
             body { font-family: 'Tahoma', sans-serif; direction: rtl; text-align: right; padding: 10px; margin: 0; }
-            .receipt-container { width: 72mm; margin: auto; }
+            .receipt { width: 72mm; margin: auto; }
             .center { text-align: center; }
-            .flex-space { display: flex; justify-content: space-between; margin: 2px 0; }
-            .dashed-line { border-bottom: 1px dashed #000; margin: 4px 0; }
-            .logo { width: 70px; height: auto; }
-            .qr-code { width: 120px; height: auto; }
-            @media print { body { margin: 0; } }
+            .flex { display: flex; justify-content: space-between; }
+            .line { border-bottom: 1px dashed #000; margin: 5px 0; }
+            img { max-width: 100px; }
         </style>
     </head>
     <body>
-        <div class="receipt-container">
+        <div class="receipt">
             <div class="center">
-                <img src="logo.png" class="logo"><br>
-                <b>سحايب ديرتي</b><br>
-                حجز مسبق<br>
-                📞 0112020203
+                <img src="logo.png">
+                <h3>سحايب ديرتي</h3>
+                <p>حجز مسبق - 0112020203</p>
             </div>
-
             <hr>
-
-            👤 ${document.getElementById("custName").value || "-"}<br>
-            📞 ${document.getElementById("custPhone").value || "-"}<br>
-            📍 ${document.getElementById("custAddress").value || "-"}<br>
-
-            ${document.getElementById("custTime").value ?
-            "⏰ " + new Date(document.getElementById("custTime").value).toLocaleString('ar-SA') : ""}
-
+            <div>👤 العميل: ${cName}</div>
+            <div>📞 الجوال: ${cPhone}</div>
+            <div>📍 العنوان: ${cAddr}</div>
+            ${timeText ? `<div>⏰ الموعد: ${timeText}</div>` : ""}
             <hr>
     `;
 
-    // جزء إضافة أصناف السلة
+    // إضافة الأصناف
     cart.forEach(i => {
-        let total = i.price * i.qty;
         content += `
-            <div class="flex-space">
+            <div class="flex">
                 <span>${i.name} × ${i.qty}</span>
-                <span>${total} ر.س</span>
+                <span>${i.price * i.qty} ر.س</span>
             </div>
-            <div class="dashed-line"></div>
-            ${i.note ? `<div style="font-size:11px">📝 ${i.note}</div>` : ""}
+            <div class="line"></div>
         `;
     });
 
+    // --- الجزء الجديد: إضافة رسوم التوصيل للفاتورة ---
+    if (typeof orderType !== 'undefined' && orderType === "delivery") {
+        let fee = parseFloat(document.getElementById("deliveryFee").value) || 0;
+        content += `
+            <div class="flex" style="font-weight:bold;">
+                <span>🚚 رسوم التوصيل</span>
+                <span>${fee} ر.س</span>
+            </div>
+            <div class="line"></div>
+        `;
+    }
+    // ----------------------------------------------
+
     content += `
+            <h2 class="center">${totalVal}</h2>
             <hr>
-            <div class="center" style="font-size:18px;font-weight:bold">
-                ${document.getElementById("total").textContent}
-            </div>
-
-            <hr>
-
             <div class="center">
-                <img src="qr.png" class="qr-code">
-            </div>
-
-            <div class="center" style="font-size:12px">
-                شكراً لثقتكم ❤️
+                <img src="qr.png" style="width:120px">
+                <p>شكراً لثقتكم ❤️</p>
             </div>
         </div>
-
         <script>
             window.onload = function() {
                 window.print();
@@ -257,10 +255,10 @@ function printReceipt() {
     `;
 
     let w = window.open('', '', 'width=600,height=800');
-    w.document.open();
     w.document.write(content);
     w.document.close();
 }
+
 
 
 /* الإدارة */
