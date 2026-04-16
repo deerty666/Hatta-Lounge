@@ -176,7 +176,7 @@ function sendToWhatsApp() {
 }
 
 /* الطباعة */
-function printReceipt() {
+
 function printReceipt() {
     const qr = "https://deerty666.github.io/menu.html?branch=branch1";
 
