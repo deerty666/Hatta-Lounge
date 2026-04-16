@@ -241,7 +241,8 @@ function printReceipt() {
             <hr>
             <div class="center">
                 <img src="qr.png" style="width:120px">
-                <p>شكراً لثقتكم ❤️</p>
+                <p style="font-size:14px; font-weight:bold; margin-top:5px;">اطلب من جوالك 📲</p>
+
             </div>
         </div>
         <script>
