@@ -126,7 +126,7 @@ function sendToWhatsApp() {
     let inputPhone = document.getElementById("custPhone").value.trim();
     let phone = inputPhone.replace(/\D/g, '');
 
-    // تحويل الرقم إلى صيغة دولية
+    // ضبط تنسيق الرقم السعودي
     if (phone.startsWith("05")) phone = "966" + phone.substring(1);
     else if (phone.startsWith("5")) phone = "966" + phone;
     else if (!phone.startsWith("966")) phone = "966" + phone;
@@ -136,43 +136,44 @@ function sendToWhatsApp() {
     let time = document.getElementById("custTime").value;
     let timeText = time ? new Date(time).toLocaleString('ar-SA') : "-";
 
-    let type = orderType === "delivery" ? "\u{1F697} توصيل" : "\u{1F3E0} استلام";
+    // استخدام الرموز مباشرة (تظهر بوضوح في GitHub و WhatsApp)
+    let type = (typeof orderType !== 'undefined' && orderType === "delivery") ? "🚗 توصيل" : "🏠 استلام";
 
-    // صياغة الرسالة باستخدام Unicode Escapes (تعمل حتى لو الملف مش UTF-8)
-    let text = `\u{1F9FE} سحايب ديرتي - فاتورة حجز\n\n`;
-    text += `\u{1F464} العميل: ${name}\n`;
-    text += `\u{1F4E6} نوع الطلب: ${type}\n`;
-    text += `\u{1F4CD} العنوان: ${address}\n`;
-    text += `\u{23F0} الموعد: ${timeText}\n`;
+    let text = `🧾 *سحايب ديرتي - فاتورة حجز*\n\n`;
+    text += `👤 *العميل:* ${name}\n`;
+    text += `📦 *نوع الطلب:* ${type}\n`;
+    text += `📍 *العنوان:* ${address}\n`;
+    text += `⏰ *الموعد:* ${timeText}\n`;
     text += `━━━━━━━━━━━━━━━━━━\n\n`;
 
     cart.forEach(i => {
         let total = i.price * i.qty;
-        text += `\u{25AA}\u{FE0E} ${i.name}\n`;                    // ▪️
+        text += `▪️ *${i.name}*\n`;
         text += `   العدد: ${i.qty} × ${i.price} = ${total} ر.س\n`;
         if (i.note && i.note.trim() !== "") {
-            text += `\u{1F4DD} ملاحظة: ${i.note}\n`;
+            text += `📝 ملاحظة: ${i.note}\n`;
         }
         text += `\n`;
     });
 
-    if (orderType === "delivery") {
+    if (typeof orderType !== 'undefined' && orderType === "delivery") {
         let fee = parseFloat(document.getElementById("deliveryFee").value) || 0;
-        text += `\u{1F6DA} رسوم التوصيل: ${fee} ر.س\n\n`;
+        text += `🚚 *رسوم التوصيل:* ${fee} ر.س\n\n`;
     }
 
     text += `━━━━━━━━━━━━━━━━━━\n`;
-    text += `\u{1F4B0} الإجمالي النهائي: ${document.getElementById("total").textContent}\n\n`;
-    text += `\u{1F499} شكراً لتعاملكم معنا\n`;
+    let totalText = document.getElementById("total").textContent;
+    text += `💰 *الإجمالي النهائي: ${totalText}*\n\n`;
+    text += `💙 شكراً لتعاملكم معنا\n`;
     text += `نتمنى لك يوماً سعيداً 🌟\n\n`;
-    text += `\u{1F4F1} لطلب أسهل وأسرع:\n`;
+    text += `📱 *لطلب أسهل وأسرع:*\n`;
     text += `https://deerty666.github.io/menu.html?branch=branch1`;
 
-    // فتح واتساب
-    let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(text);
-    window.location.href = url;
+    // استخدام الرابط الرسمي لضمان تشفير الإيموجي
+    let url = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(text);
+    
+    window.open(url, '_blank');
 }
-
 
 /* الطباعة */
 function printReceipt(){
