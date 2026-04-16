@@ -137,12 +137,12 @@ let timeText=time ? new Date(time).toLocaleString('ar-SA') : "-";
 
 let type=orderType==="delivery" ? "🚗 توصيل" : "🏠 استلام";
 
-let text=`\u{1F9FE} سحايب ديرتي - فاتورة حجز\n\n`; // 🧾
+let text=`\uD83E\uDDFE سحايب ديرتي - فاتورة حجز\n\n`; // 🧾
 
-text+=`\u{1F464} العميل: ${name}\n`; // 👤
-text+=`\u{1F4E6} نوع الطلب: ${type}\n`; // 📦
-text+=`\u{1F4CD} العنوان: ${address}\n`; // 📍
-text+=`\u{23F0} الموعد: ${timeText}\n`; // ⏰
+text+=`\uD83D\uDC64 العميل: ${name}\n`; // 👤
+text+=`\uD83D\uDCE6 نوع الطلب: ${type}\n`; // 📦
+text+=`\uD83D\uDCCD العنوان: ${address}\n`; // 📍
+text+=`\u23F0 الموعد: ${timeText}\n`; // ⏰
 
 text+=`━━━━━━━━━━━━\n`;
 
@@ -153,7 +153,7 @@ text+=`▪️ ${i.name}\n`;
 text+=`العدد: ${i.qty} | السعر: ${total} ر.س\n`;
 
 if(i.note){
-text+=`\u{270F} ملاحظة: ${i.note}\n`; // ✏️
+text+=`\u270F ملاحظة: ${i.note}\n`; // ✏️
 }
 
 text+=`\n`;
@@ -161,15 +161,15 @@ text+=`\n`;
 
 if(orderType==="delivery"){
 let fee=parseFloat(document.getElementById("deliveryFee").value)||0;
-text+=`\u{1F69A} رسوم التوصيل: ${fee} ر.س\n`; // 🚚
+text+=`\uD83D\uDE9A رسوم التوصيل: ${fee} ر.س\n`; // 🚚
 }
 
 text+=`━━━━━━━━━━━━\n`;
-text+=`\u{1F4B0} الإجمالي النهائي: ${document.getElementById("total").textContent}\n`; // 💰
+text+=`\uD83D\uDCB0 الإجمالي النهائي: ${document.getElementById("total").textContent}\n`; // 💰
 
-text+=`\n\u{1F499} شكراً لتعاملكم معنا\n\n`; // 💙
+text+=`\n\uD83D\uDC99 شكراً لتعاملكم معنا\n\n`; // 💙
 
-text+=`\u{1F4F1} لطلب اسرع في المرات القادمة حمل التطبيق :\n`; // 📱
+text+=`\uD83D\uDCF1 لطلب اسهل في المرات القادمة حمل تطبيق القائمة:\n`; // 📱
 text+=`https://deerty666.github.io/menu.html?branch=branch1`;
 
 let url="https://wa.me/"+phone+"?text="+encodeURIComponent(text);
