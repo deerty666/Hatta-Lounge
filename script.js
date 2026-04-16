@@ -121,60 +121,58 @@ updateTotal();
 }
 
 /* واتساب */
-function sendToWhatsApp(){
+function sendToWhatsApp() {
+    let inputPhone = document.getElementById("custPhone").value.trim();
+    let phone = inputPhone.replace(/\D/g, '');
 
-let inputPhone=document.getElementById("custPhone").value.trim();
-let phone=inputPhone.replace(/\D/g,'');
+    // تجهيز رقم الهاتف الدولي
+    if (phone.startsWith("05")) phone = "966" + phone.substring(1);
+    else if (phone.startsWith("5")) phone = "966" + phone;
+    else if (!phone.startsWith("966")) phone = "966" + phone;
 
-if(phone.startsWith("05")) phone="966"+phone.substring(1);
-else if(phone.startsWith("5")) phone="966"+phone;
-else if(!phone.startsWith("966")) phone="966"+phone;
+    let name = document.getElementById("custName").value || "ضيف";
+    let address = document.getElementById("custAddress").value || "لم يحدد";
+    let time = document.getElementById("custTime").value;
+    let timeText = time ? new Date(time).toLocaleString('ar-SA') : "-";
 
-let name=document.getElementById("custName").value||"ضيف";
-let address=document.getElementById("custAddress").value||"لم يحدد";
-let time=document.getElementById("custTime").value;
-let timeText=time ? new Date(time).toLocaleString('ar-SA') : "-";
+    let type = orderType === "delivery" ? "🚗 توصيل" : "🏠 استلام";
 
-let type=orderType==="delivery" ? "🚗 توصيل" : "🏠 استلام";
+    // صياغة نص الرسالة باستخدام الرموز المباشرة 🧾
+    let text = `🧾 سحايب ديرتي - فاتورة حجز\n\n`;
+    text += `👤 العميل: ${name}\n`;
+    text += `📦 نوع الطلب: ${type}\n`;
+    text += `📍 العنوان: ${address}\n`;
+    text += `⏰ الموعد: ${timeText}\n`;
 
-let text=`\uD83E\uDDFE سحايب ديرتي - فاتورة حجز\n\n`; // 🧾
+    text += `━━━━━━━━━━━━\n`;
 
-text+=`\uD83D\uDC64 العميل: ${name}\n`; // 👤
-text+=`\uD83D\uDCE6 نوع الطلب: ${type}\n`; // 📦
-text+=`\uD83D\uDCCD العنوان: ${address}\n`; // 📍
-text+=`\u23F0 الموعد: ${timeText}\n`; // ⏰
+    cart.forEach(i => {
+        let total = i.price * i.qty;
+        text += `▪️ ${i.name}\n`;
+        text += `العدد: ${i.qty} | السعر: ${total} ر.س\n`;
 
-text+=`━━━━━━━━━━━━\n`;
+        if (i.note) {
+            text += `📝 ملاحظة: ${i.note}\n`;
+        }
+        text += `\n`;
+    });
 
-cart.forEach(i=>{
-let total=i.price*i.qty;
+    if (orderType === "delivery") {
+        let fee = parseFloat(document.getElementById("deliveryFee").value) || 0;
+        text += `🚚 رسوم التوصيل: ${fee} ر.س\n`;
+    }
 
-text+=`▪️ ${i.name}\n`;
-text+=`العدد: ${i.qty} | السعر: ${total} ر.س\n`;
+    text += `━━━━━━━━━━━━\n`;
+    text += `💰 الإجمالي النهائي: ${document.getElementById("total").textContent}\n`;
+    text += `\n💙 شكراً لتعاملكم معنا\n\n`;
+    text += `📱 لطلب اسرع في المرات القادمة ثبت تطبيقنا القائمة:\n`;
+    text += `https://deerty666.github.io/menu.html?branch=branch1`;
 
-if(i.note){
-text+=`\u270F ملاحظة: ${i.note}\n`; // ✏️
+    // استخدام encodeURIComponent للتأكد من إرسال النص والرموز بشكل سليم
+    let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(text);
+    window.location.href = url;
 }
 
-text+=`\n`;
-});
-
-if(orderType==="delivery"){
-let fee=parseFloat(document.getElementById("deliveryFee").value)||0;
-text+=`\uD83D\uDE9A رسوم التوصيل: ${fee} ر.س\n`; // 🚚
-}
-
-text+=`━━━━━━━━━━━━\n`;
-text+=`\uD83D\uDCB0 الإجمالي النهائي: ${document.getElementById("total").textContent}\n`; // 💰
-
-text+=`\n\uD83D\uDC99 شكراً لتعاملكم معنا\n\n`; // 💙
-
-text+=`\uD83D\uDCF1 لطلب اسهل في المرات القادمة حمل تطبيق القائمة:\n`; // 📱
-text+=`https://deerty666.github.io/menu.html?branch=branch1`;
-
-let url="https://wa.me/"+phone+"?text="+encodeURIComponent(text);
-window.location.href=url;
-}
 /* الطباعة */
 function printReceipt(){
 
