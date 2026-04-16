@@ -201,8 +201,8 @@ function printReceipt() {
         <div class="receipt">
             <div class="center">
                 <img src="logo.png">
-                <h3>سحايب ديرتي</h3>
-                <p>حجز مسبق - 0112020203</p>
+                <h3>مطعم ديرتي</h3>
+                <p>حجز مسبق -📞 0112020203</p>
             </div>
             <hr>
             <div>👤 العميل: ${cName}</div>
