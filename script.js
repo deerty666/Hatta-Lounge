@@ -130,43 +130,51 @@ if(phone.startsWith("05")) phone="966"+phone.substring(1);
 else if(phone.startsWith("5")) phone="966"+phone;
 else if(!phone.startsWith("966")) phone="966"+phone;
 
-let type=orderType==="delivery" ? "🚗 توصيل" : "🏠 استلام";
-
+let name=document.getElementById("custName").value||"ضيف";
+let address=document.getElementById("custAddress").value||"لم يحدد";
 let time=document.getElementById("custTime").value;
 let timeText=time ? new Date(time).toLocaleString('ar-SA') : "-";
 
-let text=`🧾 طلب حجز - سحايب ديرتي\n\n`;
+let type=orderType==="delivery" ? "🚗 توصيل" : "🏠 استلام";
 
-text+=`📦 نوع الطلب: ${type}\n`;
-text+=`👤 العميل: ${document.getElementById("custName").value||"-"}\n`;
-text+=`📞 الجوال: ${inputPhone}\n`;
-text+=`📍 العنوان: ${document.getElementById("custAddress").value||"-"}\n`;
-text+=`⏰ الموعد: ${timeText}\n`;
+let text=`\u{1F9FE} سحايب ديرتي - فاتورة حجز\n\n`; // 🧾
 
-text+=`\n━━━━━━━━━━━━\n`;
+text+=`\u{1F464} العميل: ${name}\n`; // 👤
+text+=`\u{1F4E6} نوع الطلب: ${type}\n`; // 📦
+text+=`\u{1F4CD} العنوان: ${address}\n`; // 📍
+text+=`\u{23F0} الموعد: ${timeText}\n`; // ⏰
+
+text+=`━━━━━━━━━━━━\n`;
 
 cart.forEach(i=>{
 let total=i.price*i.qty;
-text+=`▪️ ${i.name} × ${i.qty} = ${total} ر.س\n`;
-if(i.note) text+=`📝 ${i.note}\n`;
+
+text+=`▪️ ${i.name}\n`;
+text+=`العدد: ${i.qty} | السعر: ${total} ر.س\n`;
+
+if(i.note){
+text+=`\u{270F} ملاحظة: ${i.note}\n`; // ✏️
+}
+
 text+=`\n`;
 });
 
 if(orderType==="delivery"){
 let fee=parseFloat(document.getElementById("deliveryFee").value)||0;
-text+=`🚚 رسوم التوصيل: ${fee} ر.س\n`;
+text+=`\u{1F69A} رسوم التوصيل: ${fee} ر.س\n`; // 🚚
 }
 
 text+=`━━━━━━━━━━━━\n`;
-text+=`💰 الإجمالي: ${document.getElementById("total").textContent}\n`;
+text+=`\u{1F4B0} الإجمالي النهائي: ${document.getElementById("total").textContent}\n`; // 💰
 
-text+=`━━━━━━━━━━━━\n`;
-text+=`📲 https://deerty666.github.io/menu.html?branch=branch1`;
+text+=`\n\u{1F499} شكراً لتعاملكم معنا\n\n`; // 💙
+
+text+=`\u{1F4F1} لطلب اسرع في المرات القادمة حمل التطبيق :\n`; // 📱
+text+=`https://deerty666.github.io/menu.html?branch=branch1`;
 
 let url="https://wa.me/"+phone+"?text="+encodeURIComponent(text);
 window.location.href=url;
 }
-
 /* الطباعة */
 function printReceipt(){
 
