@@ -177,7 +177,6 @@ function sendToWhatsApp() {
 
 /* الطباعة */
 function printReceipt() {
-function printReceipt() {
     let content = `
     <html>
     <head>
