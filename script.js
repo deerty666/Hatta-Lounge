@@ -165,8 +165,9 @@ function sendToWhatsApp() {
     let totalText = document.getElementById("total").textContent;
     text += `💰 *الإجمالي النهائي: ${totalText}*\n\n`;
     text += `💙 شكراً لتعاملكم معنا\n`;
-    text += `نتمنى لك يوماً سعيداً 🌟\n\n`;
-    text += `📱 *لطلب أسهل وأسرع:*\n`;
+    text += `نتمنى لكم وجبة شهية 😋 🌟\n\n`;
+    text += `📱 *📲 خل ديرتي دايم معك
+وثبت التطبيق الآن 👇:*\n`;
     text += `https://deerty666.github.io/menu.html?branch=branch1`;
 
     // استخدام الرابط الرسمي لضمان تشفير الإيموجي
