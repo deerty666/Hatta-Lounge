@@ -139,7 +139,7 @@ function sendToWhatsApp() {
     // استخدام الرموز مباشرة (تظهر بوضوح في GitHub و WhatsApp)
     let type = (typeof orderType !== 'undefined' && orderType === "delivery") ? "🚗 توصيل" : "🏠 استلام";
 
-    let text = `🧾 *مطعم ديرتي - طلب *\n\n`;
+    let text = `🧾 *مطعم ديرتي - تفاصيل الطلب *\n\n`;
     text += `👤 *العميل:* ${name}\n`;
     text += `📦 *نوع الطلب:* ${type}\n`;
     text += `📍 *العنوان:* ${address}\n`;
