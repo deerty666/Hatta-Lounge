@@ -215,14 +215,24 @@ function printReceipt() {
 
     // إضافة الأصناف
     cart.forEach(i => {
+    content += `
+        <div class="flex">
+            <span>${i.name} × ${i.qty}</span>
+            <span>${i.price * i.qty} ر.س</span>
+        </div>
+    `;
+
+    // ✅ إضافة الملاحظة
+    if (i.note && i.note.trim() !== "") {
         content += `
-            <div class="flex">
-                <span>${i.name} × ${i.qty}</span>
-                <span>${i.price * i.qty} ر.س</span>
+            <div style="font-size:12px; color:#555; margin-right:5px;">
+                ✦ ملاحظة: ${i.note}
             </div>
-            <div class="line"></div>
         `;
-    });
+    }
+
+    content += `<div class="line"></div>`;
+});
 
     // --- الجزء الجديد: إضافة رسوم التوصيل للفاتورة ---
     if (typeof orderType !== 'undefined' && orderType === "delivery") {
