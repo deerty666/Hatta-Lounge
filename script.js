@@ -175,8 +175,6 @@ function sendToWhatsApp() {
     
     window.open(url, '_blank');
 }
-
-/* الطباعة */
 /* الطباعة */
 function printReceipt() {
 
