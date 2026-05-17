@@ -363,8 +363,19 @@ td{
     <div class="center">
         <img src="logo.png" class="logo">
         <div class="title">سحايب ديرتي</div>
-        <div class="sub">شركة مطاعم سحايب ديرتي </div>
-    </div>
+
+<div class="sub">
+شركة مطاعم سحايب ديرتي
+</div>
+
+<div style="
+font-size:15px;
+font-weight:bold;
+margin-top:3px;
+margin-bottom:10px;
+">
+📞 0112020203
+</div>
 
     <div class="black-box">
         فاتورةحجز مؤقته  
