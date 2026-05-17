@@ -230,8 +230,8 @@ body{
 }
 
 .logo{
-    width:70px;
-    max-height:55px;
+    width:110px;
+    max-height:90px;
     object-fit:contain;
     margin-bottom:5px;
 }
@@ -362,7 +362,7 @@ td{
 
     <div class="center">
         <img src="logo.png" class="logo">
-        <div class="title">سحاب ديرتي</div>
+        <div class="title">سحايب ديرتي</div>
         <div class="sub">شركة مطاعم سحايب ديرتي </div>
     </div>
 
