@@ -177,7 +177,6 @@ function sendToWhatsApp() {
 }
 
 /* الطباعة */
-
 function printReceipt() {
     let cName = document.getElementById("custName").value || "-";
     let cPhone = document.getElementById("custPhone").value || "-";
@@ -187,86 +186,184 @@ function printReceipt() {
     let totalVal = document.getElementById("total").textContent;
 
     let content = `
-    <html>
-    <head>
-        <style>
-            body { font-family: 'Tahoma', sans-serif; direction: rtl; text-align: right; padding: 10px; margin: 0; }
-            .receipt { width: 72mm; margin: auto; }
-            .center { text-align: center; }
-            .flex { display: flex; justify-content: space-between; }
-            .line { border-bottom: 1px dashed #000; margin: 5px 0; }
-            img { max-width: 100px; }
-        </style>
-    </head>
-    <body>
-        <div class="receipt">
-            <div class="center">
-                <img src="logo.png">
-                <h3>مطعم ديرتي</h3>
-                <p>حجز مسبق -📞 0112020203</p>
-            </div>
-            <hr>
-            <div>👤 العميل: ${cName}</div>
-            <div>📞 الجوال: ${cPhone}</div>
-            <div>📍 العنوان: ${cAddr}</div>
-            ${timeText ? `<div>⏰ الموعد: ${timeText}</div>` : ""}
-            <hr>
-    `;
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+@page{
+    size: 80mm auto;
+    margin: 0;
+}
 
-    // إضافة الأصناف
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    padding:0;
+    direction:rtl;
+    font-family:Tahoma, Arial, sans-serif;
+    background:white;
+    color:#111;
+}
+
+.receipt{
+    width:72mm;
+    margin:0 auto;
+    padding:6mm 4mm;
+    text-align:right;
+}
+
+.center{
+    text-align:center;
+}
+
+.logo{
+    width:75px;
+    max-height:55px;
+    object-fit:contain;
+    margin-bottom:4px;
+}
+
+h2,h3,p{
+    margin:4px 0;
+}
+
+.phone{
+    font-size:15px;
+    font-weight:bold;
+}
+
+.info{
+    margin-top:10px;
+    border-top:1px dotted #999;
+    border-bottom:1px dotted #999;
+    padding:8px 0;
+    font-size:15px;
+    line-height:1.9;
+}
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:5px;
+    font-size:15px;
+    padding:5px 0;
+    border-bottom:1px dashed #777;
+}
+
+.item-name{
+    flex:1;
+    text-align:right;
+    white-space:normal;
+}
+
+.item-price{
+    width:20mm;
+    text-align:left;
+    font-weight:bold;
+}
+
+.note{
+    font-size:12px;
+    color:#444;
+    margin:2px 0 5px;
+}
+
+.total{
+    text-align:center;
+    font-size:28px;
+    font-weight:900;
+    margin:14px 0 10px;
+}
+
+.qr{
+    width:115px;
+    margin-top:8px;
+}
+
+.footer{
+    text-align:center;
+    font-size:13px;
+    margin-top:4px;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+<div class="receipt">
+
+    <div class="center">
+        <img src="logo.png" class="logo">
+        <h3>مطعم ديرتي</h3>
+        <p class="phone">حجز مسبق - 📞 0112020203</p>
+    </div>
+
+    <div class="info">
+        <div>👤 العميل: ${cName}</div>
+        <div>📞 الجوال: ${cPhone}</div>
+        <div>📍 العنوان: ${cAddr}</div>
+        ${timeText ? `<div>⏰ الموعد: ${timeText}</div>` : ""}
+    </div>
+`;
+
     cart.forEach(i => {
-    content += `
-        <div class="flex">
-            <span>${i.name} × ${i.qty}</span>
-            <span>${i.price * i.qty} ر.س</span>
-        </div>
-    `;
+        let itemTotal = i.price * i.qty;
 
-    // ✅ إضافة الملاحظة
-    if (i.note && i.note.trim() !== "") {
         content += `
-            <div style="font-size:12px; color:#555; margin-right:5px;">
-                ✦ ملاحظة: ${i.note}
-            </div>
+        <div class="row">
+            <div class="item-name">${i.name} × ${i.qty}</div>
+            <div class="item-price">${itemTotal} ر.س</div>
+        </div>
         `;
-    }
 
-    content += `<div class="line"></div>`;
-});
+        if (i.note && i.note.trim() !== "") {
+            content += `
+            <div class="note">✦ ملاحظة: ${i.note}</div>
+            `;
+        }
+    });
 
-    // --- الجزء الجديد: إضافة رسوم التوصيل للفاتورة ---
-    if (typeof orderType !== 'undefined' && orderType === "delivery") {
+    if (orderType === "delivery") {
         let fee = parseFloat(document.getElementById("deliveryFee").value) || 0;
         content += `
-            <div class="flex" style="font-weight:bold;">
-                <span>🚚 رسوم التوصيل</span>
-                <span>${fee} ر.س</span>
-            </div>
-            <div class="line"></div>
+        <div class="row">
+            <div class="item-name">🚚 رسوم التوصيل</div>
+            <div class="item-price">${fee} ر.س</div>
+        </div>
         `;
     }
-    // ----------------------------------------------
 
     content += `
-            <h2 class="center">${totalVal}</h2>
-            <hr>
-            <div class="center">
-                <img src="qr.png" style="width:120px">
-                <p style="font-size:14px; font-weight:bold; margin-top:5px;">اطلب من جوالك 📲</p>
+    <div class="total">${totalVal}</div>
 
-            </div>
-        </div>
-        <script>
-            window.onload = function() {
-                window.print();
-                setTimeout(() => { window.close(); }, 500);
-            };
-        </script>
-    </body>
-    </html>
-    `;
+    <div class="center">
+        <img src="qr.png" class="qr">
+        <div class="footer">اطلب من جوالك 📲</div>
+    </div>
 
-    let w = window.open('', '', 'width=600,height=800');
+</div>
+
+<script>
+window.onload = function(){
+    setTimeout(function(){
+        window.print();
+        setTimeout(function(){
+            window.close();
+        }, 600);
+    }, 300);
+};
+<\/script>
+
+</body>
+</html>
+`;
+
+    let w = window.open('', '', 'width=400,height=700');
+    w.document.open();
     w.document.write(content);
     w.document.close();
 }
