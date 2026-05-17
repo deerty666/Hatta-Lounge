@@ -372,27 +372,32 @@ td{
 
     <div class="info-box">
 
-        <div class="info-row">
-            <span>رقم الفاتورة</span>
-            <span>${invoiceNo}</span>
-        </div>
-
-        <div class="info-row">
-            <span>السواق</span>
-            <span>${cName}</span>
-        </div>
-
-        <div class="info-row">
-            <span>الجوال</span>
-            <span>${cPhone}</span>
-        </div>
-
-        <div class="info-row">
-            <span>التاريخ</span>
-            <span>${timeText}</span>
-        </div>
-
+    <div class="info-row">
+        <span>رقم الفاتورة</span>
+        <span>${invoiceNo}</span>
     </div>
+
+    <div class="info-row">
+        <span>اسم العميل</span>
+        <span>${cName}</span>
+    </div>
+
+    <div class="info-row">
+        <span>جوال العميل</span>
+        <span>${cPhone}</span>
+    </div>
+
+    <div class="info-row">
+        <span>عنوان العميل</span>
+        <span>${document.getElementById("custAddress").value || "-"}</span>
+    </div>
+
+    <div class="info-row">
+        <span>الوقت</span>
+        <span>${timeText}</span>
+    </div>
+
+</div>
 
     <table>
 
