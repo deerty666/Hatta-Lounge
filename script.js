@@ -230,8 +230,8 @@ body{
 }
 
 .logo{
-    width:110px;
-    max-height:90px;
+    width:200px;
+    max-height:130px;
     object-fit:contain;
     margin-bottom:5px;
 }
