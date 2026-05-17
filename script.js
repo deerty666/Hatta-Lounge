@@ -177,22 +177,35 @@ function sendToWhatsApp() {
 }
 
 /* الطباعة */
+/* الطباعة */
 function printReceipt() {
+
     let cName = document.getElementById("custName").value || "-";
     let cPhone = document.getElementById("custPhone").value || "-";
-    let cAddr = document.getElementById("custAddress").value || "-";
     let cTime = document.getElementById("custTime").value;
-    let timeText = cTime ? new Date(cTime).toLocaleString('ar-SA') : "";
-    let totalVal = document.getElementById("total").textContent;
+
+    let timeText = cTime
+        ? new Date(cTime).toLocaleString('ar-SA')
+        : new Date().toLocaleString('ar-SA');
+
+    let totalNumber = cart.reduce((s,i)=>s+(i.price*i.qty),0);
+
+    if(orderType==="delivery"){
+        totalNumber += parseFloat(document.getElementById("deliveryFee").value) || 0;
+    }
+
+    let invoiceNo = Math.floor(100000 + Math.random() * 900000);
 
     let content = `
 <html>
 <head>
 <meta charset="UTF-8">
+
 <style>
+
 @page{
-    size: 80mm auto;
-    margin: 0;
+    size:80mm auto;
+    margin:0;
 }
 
 *{
@@ -203,16 +216,15 @@ body{
     margin:0;
     padding:0;
     direction:rtl;
-    font-family:Tahoma, Arial, sans-serif;
-    background:white;
+    background:#fff;
+    font-family:Tahoma,Arial,sans-serif;
     color:#111;
 }
 
 .receipt{
     width:72mm;
-    margin:0 auto;
-    padding:6mm 4mm;
-    text-align:right;
+    margin:auto;
+    padding:4mm;
 }
 
 .center{
@@ -220,240 +232,134 @@ body{
 }
 
 .logo{
-    width:75px;
+    width:70px;
     max-height:55px;
     object-fit:contain;
-    margin-bottom:4px;
+    margin-bottom:5px;
 }
 
-h2,h3,p{
-    margin:4px 0;
+.title{
+    font-size:26px;
+    font-weight:900;
+    margin:0;
 }
 
-.phone{
-    font-size:15px;
-    font-weight:bold;
+.sub{
+    font-size:12px;
+    margin-top:2px;
+    margin-bottom:10px;
 }
 
-.info{
-    margin-top:10px;
-    border-top:1px dotted #999;
-    border-bottom:1px dotted #999;
-    padding:8px 0;
-    font-size:15px;
-    line-height:1.9;
+.black-box{
+    background:#111;
+    color:#fff;
+    text-align:center;
+    font-size:18px;
+    font-weight:900;
+    padding:8px;
+    border-radius:4px;
+    margin-bottom:10px;
 }
 
-.row{
+.info-box{
+    border:2px solid #111;
+    border-radius:6px;
+    padding:6px;
+    margin-bottom:10px;
+}
+
+.info-row{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    gap:5px;
+    padding:6px 0;
+    border-bottom:1px dashed #999;
     font-size:15px;
-    padding:5px 0;
-    border-bottom:1px dashed #777;
-}
-
-.item-name{
-    flex:1;
-    text-align:right;
-    white-space:normal;
-}
-
-.item-price{
-    width:20mm;
-    text-align:left;
     font-weight:bold;
+}
+
+.info-row:last-child{
+    border-bottom:none;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:5px;
+}
+
+th{
+    background:#111;
+    color:#fff;
+    padding:8px 3px;
+    font-size:14px;
+}
+
+td{
+    padding:7px 3px;
+    border-bottom:1px dashed #bbb;
+    text-align:center;
+    font-size:14px;
+}
+
+.name{
+    text-align:right;
+}
+
+.total-box{
+    margin-top:12px;
+    border:2px solid #111;
+    border-radius:6px;
+    overflow:hidden;
+}
+
+.total-head{
+    background:#111;
+    color:#fff;
+    text-align:center;
+    padding:8px;
+    font-size:18px;
+    font-weight:900;
+}
+
+.total-price{
+    text-align:center;
+    font-size:32px;
+    font-weight:900;
+    padding:12px 0;
 }
 
 .note{
     font-size:12px;
     color:#444;
-    margin:2px 0 5px;
+    margin:3px 0 6px;
 }
 
-.total{
-    text-align:center;
-    font-size:28px;
-    font-weight:900;
-    margin:14px 0 10px;
-}
-
-.qr{
-    width:115px;
-    margin-top:8px;
-}
-
-.footer{
-    text-align:center;
-    font-size:13px;
-    margin-top:4px;
-    font-weight:bold;
-}
-</style>
-</head>
-
-<body>
-<div class="receipt">
-
-    <div class="center">
-        <img src="logo.png" class="logo">
-        <h3>مطعم ديرتي</h3>
-        <p class="phone">حجز مسبق - 📞 0112020203</p>
-    </div>
-
-    <div class="info">
-        <div>👤 العميل: ${cName}</div>
-        <div>📞 الجوال: ${cPhone}</div>
-        <div>📍 العنوان: ${cAddr}</div>
-        ${timeText ? `<div>⏰ الموعد: ${timeText}</div>` : ""}
-    </div>
-`;
-function printReceipt() {
-    let cName = document.getElementById("custName").value || "-";
-    let cPhone = document.getElementById("custPhone").value || "-";
-    let cAddr = document.getElementById("custAddress").value || "-";
-    let cTime = document.getElementById("custTime").value;
-    let timeText = cTime ? new Date(cTime).toLocaleString('ar-SA') : new Date().toLocaleString('ar-SA');
-    let totalNumber = cart.reduce((s,i)=>s+(i.price*i.qty),0);
-
-    if (orderType === "delivery") {
-        totalNumber += parseFloat(document.getElementById("deliveryFee").value) || 0;
-    }
-
-    let invoiceNo = Math.floor(100000 + Math.random() * 900000);
-
-    let content = `
-<html>
-<head>
-<meta charset="UTF-8">
-<style>
-@page{size:80mm auto;margin:0}
-*{box-sizing:border-box}
-body{
-    margin:0;
-    padding:0;
-    direction:rtl;
-    font-family:Tahoma,Arial,sans-serif;
-    color:#111;
-    background:#fff;
-}
-.receipt{
-    width:72mm;
-    margin:0 auto;
-    padding:4mm 3mm;
-}
-.center{text-align:center}
-.logo{width:60px;max-height:45px;object-fit:contain}
-.title{
-    font-size:28px;
-    font-weight:900;
-    margin:3px 0 0;
-}
-.sub{
-    font-size:11px;
-    margin-bottom:8px;
-}
-.black-title{
-    background:#111;
-    color:#fff;
-    text-align:center;
-    font-size:18px;
-    font-weight:900;
-    padding:7px 4px;
-    border-radius:3px;
-    margin:8px 0;
-}
-.info-box{
-    border:2px solid #111;
-    border-radius:6px;
-    padding:6px;
-    margin-bottom:8px;
-}
-.info-row{
-    display:flex;
-    justify-content:space-between;
-    border-bottom:1px dotted #555;
-    padding:5px 0;
-    font-size:15px;
-    font-weight:bold;
-}
-.info-row:last-child{border-bottom:none}
-.label{font-weight:900}
-.value{
-    direction:ltr;
-    text-align:left;
-    font-weight:900;
-}
-.dash{
-    border-top:3px dashed #111;
-    margin:8px 0;
-}
-table{
-    width:100%;
-    border-collapse:collapse;
-    table-layout:fixed;
-    font-size:13px;
-}
-th{
-    border-bottom:2px solid #111;
-    padding:5px 2px;
-    font-size:15px;
-    font-weight:900;
-}
-td{
-    border-bottom:1px dotted #aaa;
-    padding:6px 2px;
-    text-align:center;
-}
-.name{
-    text-align:right;
-    width:42%;
-}
-.qty{width:16%}
-.price{width:20%}
-.total-col{width:22%}
-.total-box{
-    border:2px solid #111;
-    border-radius:5px;
-    overflow:hidden;
-    margin-top:10px;
-}
-.total-head{
-    background:#111;
-    color:#fff;
-    text-align:center;
-    font-size:18px;
-    font-weight:900;
-    padding:7px;
-}
-.total-num{
-    text-align:center;
-    font-size:34px;
-    font-weight:900;
-    padding:10px 0;
-    direction:ltr;
-}
 .thanks{
     text-align:center;
+    margin-top:10px;
+    line-height:1.8;
     font-size:13px;
     font-weight:bold;
-    margin-top:8px;
-    line-height:1.7;
 }
+
 .qr{
-    width:110px;
-    margin-top:6px;
+    width:120px;
+    margin-top:10px;
 }
+
 .footer{
     text-align:center;
-    font-size:15px;
+    font-size:14px;
     font-weight:900;
+    margin-top:5px;
 }
+
 </style>
 </head>
 
 <body>
+
 <div class="receipt">
 
     <div class="center">
@@ -462,89 +368,145 @@ td{
         <div class="sub">ديرتي للمطاعم والمناسبات</div>
     </div>
 
-    <div class="black-title">فاتورة خاصة بوجبات السواقين</div>
-
-    <div class="info-box">
-        <div class="info-row"><span class="label">رقم الفاتورة</span><span class="value">${invoiceNo}</span></div>
-        <div class="info-row"><span class="label">السواق</span><span>${cName}</span></div>
-        <div class="info-row"><span class="label">الجوال</span><span class="value">${cPhone}</span></div>
-        <div class="info-row"><span class="label">التاريخ</span><span>${timeText}</span></div>
+    <div class="black-box">
+        فاتورة خاصة بوجبات السواقين
     </div>
 
-    <div class="dash"></div>
+    <div class="info-box">
+
+        <div class="info-row">
+            <span>رقم الفاتورة</span>
+            <span>${invoiceNo}</span>
+        </div>
+
+        <div class="info-row">
+            <span>السواق</span>
+            <span>${cName}</span>
+        </div>
+
+        <div class="info-row">
+            <span>الجوال</span>
+            <span>${cPhone}</span>
+        </div>
+
+        <div class="info-row">
+            <span>التاريخ</span>
+            <span>${timeText}</span>
+        </div>
+
+    </div>
 
     <table>
+
         <thead>
             <tr>
-                <th class="name">الصنف</th>
-                <th class="qty">الكمية</th>
-                <th class="price">السعر</th>
-                <th class="total-col">الإجمالي</th>
+                <th>الصنف</th>
+                <th>الكمية</th>
+                <th>السعر</th>
+                <th>الإجمالي</th>
             </tr>
         </thead>
-        <tbody>
-`;
 
-    cart.forEach(i => {
+        <tbody>
+    `;
+
+    cart.forEach(i=>{
+
         content += `
-            <tr>
-                <td class="name">${i.name}</td>
-                <td>${i.qty}</td>
-                <td>${Number(i.price).toFixed(2)}</td>
-                <td>${Number(i.price * i.qty).toFixed(2)}</td>
-            </tr>
+        <tr>
+            <td class="name">${i.name}</td>
+            <td>${i.qty}</td>
+            <td>${Number(i.price).toFixed(2)}</td>
+            <td>${Number(i.price * i.qty).toFixed(2)}</td>
+        </tr>
         `;
+
+        if(i.note && i.note.trim()!==""){
+            content += `
+            <tr>
+                <td colspan="4" style="text-align:right">
+                    <div class="note">
+                        ✦ ملاحظة: ${i.note}
+                    </div>
+                </td>
+            </tr>
+            `;
+        }
+
     });
 
-    if (orderType === "delivery") {
+    if(orderType==="delivery"){
+
         let fee = parseFloat(document.getElementById("deliveryFee").value) || 0;
+
         content += `
-            <tr>
-                <td class="name">رسوم التوصيل</td>
-                <td>1</td>
-                <td>${fee.toFixed(2)}</td>
-                <td>${fee.toFixed(2)}</td>
-            </tr>
+        <tr>
+            <td class="name">رسوم التوصيل</td>
+            <td>1</td>
+            <td>${fee.toFixed(2)}</td>
+            <td>${fee.toFixed(2)}</td>
+        </tr>
         `;
     }
 
     content += `
+
         </tbody>
+
     </table>
 
-    <div class="dash"></div>
-
     <div class="total-box">
-        <div class="total-head">الإجمالي النهائي</div>
-        <div class="total-num">${totalNumber.toFixed(2)} ر.س</div>
+
+        <div class="total-head">
+            الإجمالي النهائي
+        </div>
+
+        <div class="total-price">
+            ${totalNumber.toFixed(2)} ر.س
+        </div>
+
     </div>
 
     <div class="thanks">
-        شكراً لكم<br>
-        نتمنى لكم يوماً سعيداً<br>
-        هذه الفاتورة لا ترد ولا تستبدل بعد الدفع
+        شكراً لكم 🌹<br>
+        نتمنى لكم وجبة شهية 😋
     </div>
 
     <div class="center">
         <img src="qr.png" class="qr">
-        <div class="footer">اطلب من جوالك</div>
+        <div class="footer">
+            اطلب من جوالك 📲
+        </div>
     </div>
 
 </div>
 
 <script>
-window.onload=function(){
+
+window.onload = function(){
+
     setTimeout(function(){
+
         window.print();
-        setTimeout(function(){window.close();},600);
+
+        setTimeout(function(){
+
+            window.close();
+
+        },600);
+
     },300);
+
 };
+
 <\/script>
+
 </body>
 </html>
 `;
 
-    let w = window.open('', '', 'width=400,height=800');
+    let w = window.open('', '', 'width=450,height=800');
+
     w.document.open();
     w.document.write(content);
     w.document.close();
