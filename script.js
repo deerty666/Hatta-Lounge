@@ -363,11 +363,11 @@ td{
     <div class="center">
         <img src="logo.png" class="logo">
         <div class="title">سحاب ديرتي</div>
-        <div class="sub">ديرتي للمطاعم والمناسبات</div>
+        <div class="sub">شركة مطاعم سحايب ديرتي </div>
     </div>
 
     <div class="black-box">
-        فاتورة خاصة بوجبات السواقين
+        فاتورةحجز مؤقته  
     </div>
 
     <div class="info-box">
