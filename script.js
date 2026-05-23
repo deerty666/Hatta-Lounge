@@ -665,3 +665,4 @@ function deleteItem(id){
   renderMenu();
   renderAdmin();
 }
+renderMenu();
