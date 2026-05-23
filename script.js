@@ -526,59 +526,142 @@ window.onload = function(){
     w.document.close();
 }
 
-
-
 /* الإدارة */
-function openAdmin(){document.getElementById("admin").style.display="block";renderAdmin();}
-function closeAdmin(){document.getElementById("admin").style.display="none";}
+function openAdmin(){
+  document.getElementById("admin").style.display="block";
+  renderAdmin();
+}
+
+function closeAdmin(){
+  document.getElementById("admin").style.display="none";
+}
 
 function renderAdmin(){
-let list=document.getElementById("adminList");
-let select=document.getElementById("catSelect");
+  let list=document.getElementById("adminList");
+  let select=document.getElementById("catSelect");
 
-list.innerHTML="";select.innerHTML="";
+  list.innerHTML="";
+  select.innerHTML="";
 
-menu.categories.forEach(cat=>{
-let opt=document.createElement("option");
-opt.value=cat;opt.textContent=cat;
-select.appendChild(opt);
+  list.innerHTML += `<h3>الأقسام</h3>`;
 
-list.innerHTML+=`${cat} <button onclick="deleteCategory('${cat}')">❌</button><br>`;
-});
+  menu.categories.forEach(cat=>{
+    let opt=document.createElement("option");
+    opt.value=cat;
+    opt.textContent=cat;
+    select.appendChild(opt);
 
-menu.items.forEach(item=>{
-list.innerHTML+=`${item.name} - ${item.price}
-<button onclick="deleteItem(${item.id})">❌</button><br>`;
-});
+    list.innerHTML += `
+      <div style="margin:8px 0">
+        <input value="${cat}" onchange="editCategory('${cat}', this.value)">
+        <button onclick="deleteCategory('${cat}')">❌ حذف</button>
+      </div>
+    `;
+  });
+
+  list.innerHTML += `<hr><h3>الأصناف</h3>`;
+
+  menu.items.forEach(item=>{
+    list.innerHTML += `
+      <div style="margin:8px 0">
+        <input value="${item.name}" onchange="editItemName(${item.id}, this.value)">
+        <input type="number" value="${item.price}" onchange="editItemPrice(${item.id}, this.value)" style="width:90px">
+        <button onclick="deleteItem(${item.id})">❌ حذف</button>
+      </div>
+    `;
+  });
+}
+
+function editCategory(oldName,newName){
+  newName = newName.trim();
+  if(!newName)return;
+
+  menu.categories = menu.categories.map(c => c === oldName ? newName : c);
+
+  menu.items.forEach(item=>{
+    if(item.category === oldName){
+      item.category = newName;
+    }
+  });
+
+  saveMenu();
+  renderMenu();
+  renderAdmin();
+}
+
+function editItemName(id,newName){
+  newName = newName.trim();
+  if(!newName)return;
+
+  let item = menu.items.find(i=>i.id===id);
+  if(item){
+    item.name = newName;
+    saveMenu();
+    renderMenu();
+    renderAdmin();
+  }
+}
+
+function editItemPrice(id,newPrice){
+  newPrice = parseFloat(newPrice);
+  if(!newPrice)return;
+
+  let item = menu.items.find(i=>i.id===id);
+  if(item){
+    item.price = newPrice;
+    saveMenu();
+    renderMenu();
+    renderAdmin();
+  }
 }
 
 function addCategory(){
-let name=document.getElementById("newCat").value;
-if(!name)return;
-menu.categories.push(name);
-saveMenu();renderMenu();renderAdmin();
+  let name=document.getElementById("newCat").value.trim();
+  if(!name)return;
+
+  menu.categories.push(name);
+  document.getElementById("newCat").value="";
+
+  saveMenu();
+  renderMenu();
+  renderAdmin();
 }
 
 function deleteCategory(cat){
-menu.categories=menu.categories.filter(c=>c!==cat);
-menu.items=menu.items.filter(i=>i.category!==cat);
-saveMenu();renderMenu();renderAdmin();
+  menu.categories=menu.categories.filter(c=>c!==cat);
+  menu.items=menu.items.filter(i=>i.category!==cat);
+
+  saveMenu();
+  renderMenu();
+  renderAdmin();
 }
 
 function addItem(){
-let name=document.getElementById("newItemName").value;
-let price=parseFloat(document.getElementById("newItemPrice").value);
-let cat=document.getElementById("catSelect").value;
+  let name=document.getElementById("newItemName").value.trim();
+  let price=parseFloat(document.getElementById("newItemPrice").value);
+  let cat=document.getElementById("catSelect").value;
 
-if(!name||!price)return;
+  if(!name||!price)return;
 
-menu.items.push({id:Date.now(),name,price,category:cat});
-saveMenu();renderMenu();renderAdmin();
+  menu.items.push({
+    id:Date.now(),
+    name,
+    price,
+    category:cat
+  });
+
+  document.getElementById("newItemName").value="";
+  document.getElementById("newItemPrice").value="";
+
+  saveMenu();
+  renderMenu();
+  renderAdmin();
 }
 
 function deleteItem(id){
-menu.items=menu.items.filter(i=>i.id!==id);
-saveMenu();renderMenu();renderAdmin();
-}
+  menu.items=menu.items.filter(i=>i.id!==id);
 
-renderMenu();
+  saveMenu();
+  renderMenu();
+  renderAdmin();
+}
