@@ -473,57 +473,284 @@ margin-bottom:10px;
 
         <div class="total-head">
             الإجمالي النهائي
-        </div>
+/* الطباعة - فاتورة أقصر */
+function printReceipt() {
 
-        <div class="total-price">
-            ${totalNumber.toFixed(2)} ر.س
-        </div>
+let cName = document.getElementById("custName").value || "-";
+let cPhone = document.getElementById("custPhone").value || "-";
+let cAddress = document.getElementById("custAddress").value || "-";
+let cTime = document.getElementById("custTime").value;
 
-    </div>
+let timeText = cTime ? new Date(cTime).toLocaleString('ar-SA') : new Date().toLocaleString('ar-SA');
 
-    <div class="thanks">
-        شكراً لكم 🌹<br>
-        نتمنى لكم وجبة شهية 😋
-    </div>
+let totalNumber = cart.reduce((s,i)=>s+(i.price*i.qty),0);
+if(orderType==="delivery"){
+  totalNumber += parseFloat(document.getElementById("deliveryFee").value) || 0;
+}
 
-    <div class="center">
-        <img src="qr.png" class="qr">
-        <div class="footer">
-            اطلب من جوالك 📲
-        </div>
-    </div>
+let invoiceNo = Math.floor(100000 + Math.random() * 900000);
+
+let content = `
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+@page{size:80mm auto;margin:0}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  padding:0;
+  direction:rtl;
+  background:#fff;
+  font-family:Tahoma,Arial,sans-serif;
+  color:#111;
+}
+
+.receipt{
+  width:70mm;
+  margin:0 auto;
+  padding:2.5mm;
+}
+
+.center{text-align:center}
+
+.logo{
+  width:95px;
+  max-height:65px;
+  object-fit:contain;
+  margin-bottom:2px;
+}
+
+.title{
+  font-size:20px;
+  font-weight:900;
+  margin:0;
+}
+
+.sub{
+  font-size:10px;
+  margin:1px 0 3px;
+}
+
+.phone{
+  font-size:13px;
+  font-weight:900;
+  margin-bottom:5px;
+}
+
+.black-box{
+  background:#111;
+  color:#fff;
+  text-align:center;
+  font-size:15px;
+  font-weight:900;
+  padding:5px;
+  border-radius:4px;
+  margin-bottom:6px;
+}
+
+.info-box{
+  border:1.5px solid #111;
+  border-radius:5px;
+  padding:4px 6px;
+  margin-bottom:6px;
+}
+
+.info-row{
+  display:flex;
+  justify-content:space-between;
+  gap:5px;
+  padding:3px 0;
+  border-bottom:1px dashed #aaa;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.info-row:last-child{border-bottom:none}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th{
+  background:#111;
+  color:#fff;
+  padding:5px 2px;
+  font-size:12px;
+}
+
+td{
+  padding:4px 2px;
+  border-bottom:1px dashed #bbb;
+  text-align:center;
+  font-size:12px;
+}
+
+.name{
+  text-align:right;
+  max-width:72px;
+  word-break:break-word;
+}
+
+.note{
+  font-size:10px;
+  color:#333;
+  line-height:1.4;
+  margin:1px 0;
+}
+
+.total-box{
+  margin-top:7px;
+  border:2px solid #111;
+  border-radius:5px;
+  overflow:hidden;
+}
+
+.total-head{
+  background:#111;
+  color:#fff;
+  text-align:center;
+  padding:5px;
+  font-size:15px;
+  font-weight:900;
+}
+
+.total-price{
+  text-align:center;
+  font-size:26px;
+  font-weight:900;
+  padding:7px 0;
+}
+
+.thanks{
+  text-align:center;
+  margin-top:6px;
+  line-height:1.5;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.qr{
+  width:85px;
+  margin-top:5px;
+}
+
+.footer{
+  text-align:center;
+  font-size:12px;
+  font-weight:900;
+  margin-top:2px;
+}
+</style>
+</head>
+
+<body>
+<div class="receipt">
+
+<div class="center">
+  <img src="logo.png" class="logo">
+  <div class="title">سحايب ديرتي</div>
+  <div class="sub">شركة مطاعم سحايب ديرتي</div>
+  <div class="phone">📞 0112020203</div>
+</div>
+
+<div class="black-box">فاتورة حجز مؤقتة</div>
+
+<div class="info-box">
+  <div class="info-row"><span>رقم الفاتورة</span><span>${invoiceNo}</span></div>
+  <div class="info-row"><span>اسم العميل</span><span>${cName}</span></div>
+  <div class="info-row"><span>جوال العميل</span><span>${cPhone}</span></div>
+  <div class="info-row"><span>عنوان العميل</span><span>${cAddress}</span></div>
+  <div class="info-row"><span>الوقت</span><span>${timeText}</span></div>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>الصنف</th>
+<th>الكمية</th>
+<th>السعر</th>
+<th>الإجمالي</th>
+</tr>
+</thead>
+<tbody>
+`;
+
+cart.forEach(i=>{
+content += `
+<tr>
+<td class="name">${i.name}</td>
+<td>${i.qty}</td>
+<td>${Number(i.price).toFixed(2)}</td>
+<td>${Number(i.price*i.qty).toFixed(2)}</td>
+</tr>
+`;
+
+if(i.note && i.note.trim() !== ""){
+content += `
+<tr>
+<td colspan="4" style="text-align:right">
+<div class="note">✦ ${i.note}</div>
+</td>
+</tr>
+`;
+}
+});
+
+if(orderType==="delivery"){
+let fee = parseFloat(document.getElementById("deliveryFee").value) || 0;
+content += `
+<tr>
+<td class="name">رسوم التوصيل</td>
+<td>1</td>
+<td>${fee.toFixed(2)}</td>
+<td>${fee.toFixed(2)}</td>
+</tr>
+`;
+}
+
+content += `
+</tbody>
+</table>
+
+<div class="total-box">
+  <div class="total-head">الإجمالي النهائي</div>
+  <div class="total-price">${totalNumber.toFixed(2)} ر.س</div>
+</div>
+
+<div class="thanks">
+شكراً لكم 🌹<br>
+نتمنى لكم وجبة شهية 😋
+</div>
+
+<div class="center">
+  <img src="qr.png" class="qr">
+  <div class="footer">اطلب من جوالك 📲</div>
+</div>
 
 </div>
 
 <script>
-
-window.onload = function(){
-
-    setTimeout(function(){
-
-        window.print();
-
-        setTimeout(function(){
-
-            window.close();
-
-        },600);
-
-    },300);
-
+window.onload=function(){
+  setTimeout(function(){
+    window.print();
+    setTimeout(function(){window.close();},600);
+  },300);
 };
-
 <\/script>
 
 </body>
 </html>
 `;
 
-    let w = window.open('', '', 'width=450,height=800');
+let w = window.open('', '', 'width=420,height=700');
+w.document.open();
+w.document.write(content);
+w.document.close();
 
-    w.document.open();
-    w.document.write(content);
-    w.document.close();
 }
 
 /* الإدارة */
