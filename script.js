@@ -275,15 +275,15 @@ table{
 th{
   background:#111;
   color:#fff;
-  padding:3px 1px;
-  font-size:10px;
+  padding:4px 2px;
+  font-size:13px;
 }
 
 td{
-  padding:2px 1px;
+  padding:4px 2px;
   border-bottom:1px dashed #bbb;
   text-align:center;
-  font-size:10px;
+  font-size:13px;
 }
 
 .name{
