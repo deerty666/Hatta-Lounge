@@ -215,8 +215,8 @@ body{
 .center{text-align:center}
 
 .logo{
-  width:65px;
-  max-height:45px;
+  width:110px;
+  max-height:80px;
   object-fit:contain;
 }
 
