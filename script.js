@@ -172,308 +172,7 @@ let url = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIC
 window.open(url, '_blank');
 
 }
-/* الطباعة */
-function printReceipt() {
-
-let cName = document.getElementById("custName").value || "-";  
-let cPhone = document.getElementById("custPhone").value || "-";  
-let cTime = document.getElementById("custTime").value;  
-
-let timeText = cTime  
-    ? new Date(cTime).toLocaleString('ar-SA')  
-    : new Date().toLocaleString('ar-SA');  
-
-let totalNumber = cart.reduce((s,i)=>s+(i.price*i.qty),0);  
-
-if(orderType==="delivery"){  
-    totalNumber += parseFloat(document.getElementById("deliveryFee").value) || 0;  
-}  
-
-let invoiceNo = Math.floor(100000 + Math.random() * 900000);  
-
-let content = `
-
-<html>  
-<head>  
-<meta charset="UTF-8">  <style>  
-  
-@page{  
-    size:80mm auto;  
-    margin:0;  
-}  
-  
-*{  
-    box-sizing:border-box;  
-}  
-  
-body{  
-    margin:0;  
-    padding:0;  
-    direction:rtl;  
-    background:#fff;  
-    font-family:Tahoma,Arial,sans-serif;  
-    color:#111;  
-}  
-  
-.receipt{  
-    width:72mm;  
-    margin:auto;  
-    padding:4mm;  
-}  
-  
-.center{  
-    text-align:center;  
-}  
-  
-.logo{  
-    width:200px;  
-    max-height:130px;  
-    object-fit:contain;  
-    margin-bottom:5px;  
-}  
-  
-.title{  
-    font-size:26px;  
-    font-weight:900;  
-    margin:0;  
-}  
-  
-.sub{  
-    font-size:12px;  
-    margin-top:2px;  
-    margin-bottom:10px;  
-}  
-  
-.black-box{  
-    background:#111;  
-    color:#fff;  
-    text-align:center;  
-    font-size:18px;  
-    font-weight:900;  
-    padding:8px;  
-    border-radius:4px;  
-    margin-bottom:10px;  
-}  
-  
-.info-box{  
-    border:2px solid #111;  
-    border-radius:6px;  
-    padding:6px;  
-    margin-bottom:10px;  
-}  
-  
-.info-row{  
-    display:flex;  
-    justify-content:space-between;  
-    align-items:center;  
-    padding:6px 0;  
-    border-bottom:1px dashed #999;  
-    font-size:15px;  
-    font-weight:bold;  
-}  
-  
-.info-row:last-child{  
-    border-bottom:none;  
-}  
-  
-table{  
-    width:100%;  
-    border-collapse:collapse;  
-    margin-top:5px;  
-}  
-  
-th{  
-    background:#111;  
-    color:#fff;  
-    padding:8px 3px;  
-    font-size:14px;  
-}  
-  
-td{  
-    padding:7px 3px;  
-    border-bottom:1px dashed #bbb;  
-    text-align:center;  
-    font-size:14px;  
-}  
-  
-.name{  
-    text-align:right;  
-}  
-  
-.total-box{  
-    margin-top:12px;  
-    border:2px solid #111;  
-    border-radius:6px;  
-    overflow:hidden;  
-}  
-  
-.total-head{  
-    background:#111;  
-    color:#fff;  
-    text-align:center;  
-    padding:8px;  
-    font-size:18px;  
-    font-weight:900;  
-}  
-  
-.total-price{  
-    text-align:center;  
-    font-size:32px;  
-    font-weight:900;  
-    padding:12px 0;  
-}  
-  
-.note{  
-    font-size:12px;  
-    color:#444;  
-    margin:3px 0 6px;  
-}  
-  
-.thanks{  
-    text-align:center;  
-    margin-top:10px;  
-    line-height:1.8;  
-    font-size:13px;  
-    font-weight:bold;  
-}  
-  
-.qr{  
-    width:120px;  
-    margin-top:10px;  
-}  
-  
-.footer{  
-    text-align:center;  
-    font-size:14px;  
-    font-weight:900;  
-    margin-top:5px;  
-}  
-  
-</style>  </head>  <body>  <div class="receipt">  <div class="center">  
-    <img src="logo.png" class="logo">  
-    <div class="title">سحايب ديرتي</div>
-
-<div class="sub">  
-شركة مطاعم سحايب ديرتي  
-</div>  <div style="  
-font-size:15px;  
-font-weight:bold;  
-margin-top:3px;  
-margin-bottom:10px;  
-">  
-📞 0112020203  
-</div>  <div class="black-box">  
-    فاتورةحجز مؤقته    
-</div>  
-
-<div class="info-box">  
-
-<div class="info-row">  
-    <span>رقم الفاتورة</span>  
-    <span>${invoiceNo}</span>  
-</div>  
-
-<div class="info-row">  
-    <span>اسم العميل</span>  
-    <span>${cName}</span>  
-</div>  
-
-<div class="info-row">  
-    <span>جوال العميل</span>  
-    <span>${cPhone}</span>  
-</div>  
-
-<div class="info-row">  
-    <span>عنوان العميل</span>  
-    <span>${document.getElementById("custAddress").value || "-"}</span>  
-</div>  
-
-<div class="info-row">  
-    <span>الوقت</span>  
-    <span>${timeText}</span>  
-</div>
-
-</div>  <table>  
-
-    <thead>  
-        <tr>  
-            <th>الصنف</th>  
-            <th>الكمية</th>  
-            <th>السعر</th>  
-            <th>الإجمالي</th>  
-        </tr>  
-    </thead>  
-
-    <tbody>  
-`;  
-
-cart.forEach(i=>{  
-
-    content += `  
-    <tr>  
-        <td class="name">${i.name}</td>  
-        <td>${i.qty}</td>  
-        <td>${Number(i.price).toFixed(2)}</td>  
-        <td>${Number(i.price * i.qty).toFixed(2)}</td>  
-    </tr>  
-    `;  
-
-    if(i.note && i.note.trim()!==""){  
-        content += `  
-        <tr>  
-            <td colspan="4" style="text-align:right">  
-                <div class="note">  
-                    ✦ ملاحظة: ${i.note}  
-                </div>  
-            </td>  
-        </tr>  
-        `;  
-    }  
-
-});  
-
-if(orderType==="delivery"){  
-
-    let fee = parseFloat(document.getElementById("deliveryFee").value) || 0;  
-
-    content += `  
-    <tr>  
-        <td class="name">رسوم التوصيل</td>  
-        <td>1</td>  
-        <td>${fee.toFixed(2)}</td>  
-        <td>${fee.toFixed(2)}</td>  
-    </tr>  
-    `;  
-}  
-
-content += `  
-
-    </tbody>  
-
-</table>  
-
-<div class="total-box">  
-
-    <div class="total-head">  
-        الإجمالي النهائي  
-    </div>  
-
-    <div class="total-price">  
-        ${totalNumber.toFixed(2)} ر.س  
-    </div>  
-
-</div>  
-
-<div class="thanks">  
-    شكراً لكم 🌹<br>  
-    نتمنى لكم وجبة شهية 😋  
-</div>  
-
-<div class="center">  
-    <img src="qr.png" class="qr">  
-    <div class="footer">  
-        اطلب من جوالك 📲  
-/* الطباعة - فاتورة أقصر */
+/* الطباعة - فاتورة قصيرة */
 function printReceipt() {
 
 let cName = document.getElementById("custName").value || "-";
@@ -496,7 +195,6 @@ let content = `
 <meta charset="UTF-8">
 <style>
 @page{size:80mm auto;margin:0}
-
 *{box-sizing:border-box}
 
 body{
@@ -509,62 +207,61 @@ body{
 }
 
 .receipt{
-  width:70mm;
+  width:68mm;
   margin:0 auto;
-  padding:2.5mm;
+  padding:1.5mm;
 }
 
 .center{text-align:center}
 
 .logo{
-  width:95px;
-  max-height:65px;
+  width:65px;
+  max-height:45px;
   object-fit:contain;
-  margin-bottom:2px;
 }
 
 .title{
-  font-size:20px;
+  font-size:17px;
   font-weight:900;
   margin:0;
 }
 
 .sub{
-  font-size:10px;
-  margin:1px 0 3px;
+  font-size:9px;
+  margin:0;
 }
 
 .phone{
-  font-size:13px;
-  font-weight:900;
-  margin-bottom:5px;
+  font-size:11px;
+  font-weight:bold;
+  margin:1px 0 3px;
 }
 
 .black-box{
   background:#111;
   color:#fff;
   text-align:center;
-  font-size:15px;
+  font-size:13px;
   font-weight:900;
-  padding:5px;
-  border-radius:4px;
-  margin-bottom:6px;
+  padding:3px;
+  border-radius:3px;
+  margin-bottom:4px;
 }
 
 .info-box{
-  border:1.5px solid #111;
-  border-radius:5px;
-  padding:4px 6px;
-  margin-bottom:6px;
+  border:1px solid #111;
+  border-radius:4px;
+  padding:2px 5px;
+  margin-bottom:4px;
 }
 
 .info-row{
   display:flex;
   justify-content:space-between;
   gap:5px;
-  padding:3px 0;
+  padding:1px 0;
   border-bottom:1px dashed #aaa;
-  font-size:12px;
+  font-size:10px;
   font-weight:bold;
 }
 
@@ -578,34 +275,32 @@ table{
 th{
   background:#111;
   color:#fff;
-  padding:5px 2px;
-  font-size:12px;
+  padding:3px 1px;
+  font-size:10px;
 }
 
 td{
-  padding:4px 2px;
+  padding:2px 1px;
   border-bottom:1px dashed #bbb;
   text-align:center;
-  font-size:12px;
+  font-size:10px;
 }
 
 .name{
   text-align:right;
-  max-width:72px;
+  max-width:65px;
   word-break:break-word;
 }
 
 .note{
-  font-size:10px;
+  font-size:9px;
   color:#333;
-  line-height:1.4;
-  margin:1px 0;
 }
 
 .total-box{
-  margin-top:7px;
-  border:2px solid #111;
-  border-radius:5px;
+  margin-top:4px;
+  border:1px solid #111;
+  border-radius:4px;
   overflow:hidden;
 }
 
@@ -613,36 +308,35 @@ td{
   background:#111;
   color:#fff;
   text-align:center;
-  padding:5px;
-  font-size:15px;
+  padding:3px;
+  font-size:12px;
   font-weight:900;
 }
 
 .total-price{
   text-align:center;
-  font-size:26px;
+  font-size:20px;
   font-weight:900;
-  padding:7px 0;
+  padding:4px 0;
 }
 
 .thanks{
   text-align:center;
-  margin-top:6px;
-  line-height:1.5;
-  font-size:12px;
+  margin-top:3px;
+  line-height:1.3;
+  font-size:10px;
   font-weight:bold;
 }
 
 .qr{
-  width:85px;
-  margin-top:5px;
+  width:60px;
+  margin-top:3px;
 }
 
 .footer{
   text-align:center;
-  font-size:12px;
+  font-size:10px;
   font-weight:900;
-  margin-top:2px;
 }
 </style>
 </head>
@@ -662,8 +356,8 @@ td{
 <div class="info-box">
   <div class="info-row"><span>رقم الفاتورة</span><span>${invoiceNo}</span></div>
   <div class="info-row"><span>اسم العميل</span><span>${cName}</span></div>
-  <div class="info-row"><span>جوال العميل</span><span>${cPhone}</span></div>
-  <div class="info-row"><span>عنوان العميل</span><span>${cAddress}</span></div>
+  <div class="info-row"><span>الجوال</span><span>${cPhone}</span></div>
+  <div class="info-row"><span>العنوان</span><span>${cAddress}</span></div>
   <div class="info-row"><span>الوقت</span><span>${timeText}</span></div>
 </div>
 
@@ -746,13 +440,12 @@ window.onload=function(){
 </html>
 `;
 
-let w = window.open('', '', 'width=420,height=700');
+let w = window.open('', '', 'width=420,height=620');
 w.document.open();
 w.document.write(content);
 w.document.close();
 
 }
-  
 /* الإدارة */  
 function openAdmin(){  
   document.getElementById("admin").style.display="block";  
