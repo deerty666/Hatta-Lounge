@@ -893,4 +893,3 @@ function deleteItem(id){
   renderAdmin();  
 }  
 renderMenu();  
-اوريدك تعدل لي قسم الطباعه بحيث ماتكون طويله كذه الفاتوره
