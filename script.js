@@ -596,7 +596,14 @@ w.document.open();
 w.document.write(content);
 w.document.close();
 }
+function openAdmin(){
+document.getElementById("admin").style.display="block";
+renderAdmin();
+}
 
+function closeAdmin(){
+document.getElementById("admin").style.display="none";
+}
 /* الإدارة */
 function renderAdmin(){
 let list=document.getElementById("adminList");
