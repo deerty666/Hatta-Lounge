@@ -598,15 +598,6 @@ w.document.close();
 }
 
 /* الإدارة */
-function openAdmin(){
-document.getElementById("admin").style.display="block";
-renderAdmin();
-}
-
-function closeAdmin(){
-document.getElementById("admin").style.display="none";
-}
-
 function renderAdmin(){
 let list=document.getElementById("adminList");
 let select=document.getElementById("catSelect");
@@ -615,6 +606,7 @@ list.innerHTML="";
 select.innerHTML="";
 
 list.innerHTML+=`<h3>الأقسام</h3>`;
+list.innerHTML+=`<div class="admin-grid">`;
 
 menu.categories.forEach(cat=>{
 let opt=document.createElement("option");
@@ -623,24 +615,29 @@ opt.textContent=cat;
 select.appendChild(opt);
 
 list.innerHTML+=`
-<div style="margin:8px 0">
+<div class="admin-card">
 <input value="${cat}" onchange="editCategory('${cat}', this.value)">
 <button onclick="deleteCategory('${cat}')">❌ حذف</button>
 </div>
 `;
 });
 
+list.innerHTML+=`</div>`;
+
 list.innerHTML+=`<hr><h3>الأصناف</h3>`;
+list.innerHTML+=`<div class="admin-item-grid">`;
 
 menu.items.forEach(item=>{
 list.innerHTML+=`
-<div style="margin:8px 0">
+<div class="admin-card">
 <input value="${item.name}" onchange="editItemName(${item.id}, this.value)">
-<input type="number" value="${item.price}" onchange="editItemPrice(${item.id}, this.value)" style="width:90px">
+<input type="number" value="${item.price}" onchange="editItemPrice(${item.id}, this.value)">
 <button onclick="deleteItem(${item.id})">❌ حذف</button>
 </div>
 `;
 });
+
+list.innerHTML+=`</div>`;
 }
 
 function editCategory(oldName,newName){
