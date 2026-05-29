@@ -203,3 +203,54 @@ margin:18px 0;
 grid-template-columns:1fr;
 }
 }
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:#0008;
+z-index:9999;
+padding:25px;
+overflow:auto;
+}
+
+.box{
+background:white;
+max-width:950px;
+margin:40px auto;
+border-radius:24px;
+padding:25px;
+box-shadow:0 10px 35px #0005;
+}
+
+.admin-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+margin:12px 0;
+}
+
+.admin-item-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+}
+
+.admin-card{
+background:#f8fafc;
+border:2px solid #d1d5db;
+border-radius:16px;
+padding:12px;
+font-weight:bold;
+}
+
+.admin-card input{
+font-size:17px;
+font-weight:bold;
+}
+
+@media(max-width:700px){
+.admin-grid,
+.admin-item-grid{
+grid-template-columns:1fr;
+}
+}
