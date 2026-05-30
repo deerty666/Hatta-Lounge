@@ -56,29 +56,38 @@ box-shadow:0 5px 14px #2563eb55;
 
 .items{
 display:grid;
-grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
-gap:14px;
-margin-bottom:20px;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+margin-bottom:15px;
 }
 
 .item{
-background:white;
-border:3px solid #d1d5db;
+background:#2563eb;
+color:white;
+border:none;
 border-radius:20px;
-padding:24px 16px;
+
+height:95px;
+
+display:flex;
+align-items:center;
+justify-content:center;
 text-align:center;
-font-size:22px;
+
+font-size:24px;
 font-weight:900;
+
 cursor:pointer;
+
+box-shadow:0 5px 12px #0002;
 transition:.15s;
-color:#111;
-box-shadow:0 4px 10px #0001;
+
+padding:10px;
 }
 
 .item:hover{
-background:#facc15;
-border-color:#eab308;
-transform:scale(1.02);
+background:#1d4ed8;
+transform:scale(1.03);
 }
 
 input,select{
