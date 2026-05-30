@@ -637,9 +637,18 @@ list.innerHTML+=`<div class="admin-item-grid">`;
 menu.items.forEach(item=>{
 list.innerHTML+=`
 <div class="admin-card">
-<input value="${item.name}" onchange="editItemName(${item.id}, this.value)">
-<input type="number" value="${item.price}" onchange="editItemPrice(${item.id}, this.value)">
+
+<label>اسم الصنف</label>
+<input value="${item.name}"
+onchange="editItemName(${item.id}, this.value)">
+
+<label>السعر</label>
+<input type="number"
+value="${item.price}"
+onchange="editItemPrice(${item.id}, this.value)">
+
 <button onclick="deleteItem(${item.id})">❌ حذف</button>
+
 </div>
 `;
 });
