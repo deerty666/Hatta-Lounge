@@ -53,15 +53,21 @@
 
     <h2 id="total">0 ر.س</h2>
 
-    <button onclick="saveInvoice()">💾 حفظ الفاتورة</button>
-    <button onclick="printReceipt()">🖨️ طباعة</button>
-    <button onclick="sendToWhatsApp()">📲 واتساب</button>
-    <button onclick="clearCart()">🗑️ جديد</button>
+<div class="action-grid">
 
-    <hr>
+<button class="btn-print" onclick="printReceipt()">🖨️ طباعة</button>
 
-    <button onclick="showTodayInvoices()">📄 فواتير اليوم</button>
-    <button onclick="clearTodayInvoices()">🗑️ مسح فواتير اليوم</button>
+<button class="btn-save" onclick="saveInvoice()">💾 حفظ الفاتورة</button>
+
+<button class="btn-whatsapp" onclick="sendToWhatsApp()">📲 واتساب</button>
+
+<button class="btn-new" onclick="clearCart()">🗑️ جديد</button>
+
+<button class="btn-today" onclick="showTodayInvoices()">📄 فواتير اليوم</button>
+
+<button class="btn-clear" onclick="clearTodayInvoices()">🧹 مسح فواتير اليوم</button>
+
+</div>
 
     <div id="todayInvoices" style="display:none"></div>
 
