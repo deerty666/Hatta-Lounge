@@ -368,3 +368,106 @@ background:#7c3aed;
 .btn-clear{
 background:#ea580c;
 }
+/* تصغير الشاشة والسلة */
+header{
+height:45px !important;
+font-size:22px !important;
+}
+
+.container{
+height:calc(100vh - 45px) !important;
+gap:8px !important;
+padding:8px !important;
+}
+
+.menu,.cart,.card{
+padding:7px !important;
+border-radius:16px !important;
+}
+
+.logo{
+width:65px !important;
+margin:0 auto 2px !important;
+}
+
+/* تصغير معلومات العميل */
+input,select{
+padding:5px 7px !important;
+margin:2px 0 !important;
+font-size:13px !important;
+border-radius:9px !important;
+}
+
+/* تصغير أزرار استلام وتوصيل */
+.types{
+gap:5px !important;
+}
+
+.types button{
+font-size:14px !important;
+padding:7px !important;
+margin:2px 0 !important;
+border-radius:10px !important;
+}
+
+/* تكبير مساحة السلة وتصغير محتواها */
+#cartItems{
+max-height:330px !important;
+overflow:auto !important;
+padding-right:2px !important;
+}
+
+#cartItems > div{
+margin:1px 0 !important;
+}
+
+#cartItems b{
+font-size:14px !important;
+}
+
+#cartItems small{
+font-size:11px !important;
+}
+
+#cartItems input{
+height:26px !important;
+padding:3px 7px !important;
+font-size:12px !important;
+margin:1px 0 !important;
+}
+
+/* أزرار + و - */
+#cartItems button{
+width:28px !important;
+height:28px !important;
+font-size:17px !important;
+border-radius:8px !important;
+margin:1px !important;
+padding:0 !important;
+}
+
+/* تصغير الخطوط الفاصلة */
+hr{
+margin:3px 0 !important;
+height:1px !important;
+}
+
+/* الإجمالي */
+.total{
+padding:5px !important;
+font-size:24px !important;
+margin-top:3px !important;
+border-radius:12px !important;
+}
+
+/* أزرار أسفل السلة */
+.action-grid{
+gap:5px !important;
+margin-top:6px !important;
+}
+
+.action-grid button{
+height:36px !important;
+font-size:13px !important;
+border-radius:10px !important;
+}
