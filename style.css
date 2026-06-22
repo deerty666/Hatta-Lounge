@@ -471,22 +471,4 @@ height:36px !important;
 font-size:13px !important;
 border-radius:10px !important;
 }
-/* تنسيق صندوق فواتير اليوم ليدعم التمرير الرأسي */
-#todayInvoices {
-    max-height: 350px;       /* تحديد أقصى ارتفاع للصندوق بالبكسل */
-    overflow-y: auto;        /* تفعيل شريط التمرير العمودي عند زيادة الفواتير */
-    padding-right: 5px;      /* مساحة جانبية بسيطة لمنع تداخل الكلام مع شريط التمرير */
-    border: 1px solid #cbd5e1; /* إطار خفيف لتحديد الصندوق وجعله منظماً */
-    border-radius: 12px;     /* زوايا منحنية متناسقة مع تصميم تطبيقك */
-    margin-top: 10px;
-}
 
-/* تحسين شكل شريط التمرير الخاص بصندوق الفواتير */
-#todayInvoices::-webkit-scrollbar {
-    width: 6px;
-}
-
-#todayInvoices::-webkit-scrollbar-thumb {
-    background: #94a3b8;
-    border-radius: 10px;
-}
