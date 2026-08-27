@@ -322,9 +322,12 @@ function sendToWhatsApp() {
   text += `💙 شكراً لتعاملكم معنا\n`;
   text += `نتمنى لكم وجبة شهية 😋 🌟\n\n`;
   text += `📱 *خل ديرتي دايم معك*\n`;
-  text += `وثبت التطبيق الآن 👇\n`;
-  text += `https://play.google.com/store/apps/details?id=com.deerty.app&pcampaignid=web_share`;
+text += `📲 حمّل التطبيق الآن للأندرويد 👇\n`;
+text += `https://play.google.com/store/apps/details?id=com.deerty.app&pcampaignid=web_share\n\n`;
 
+text += `🍎 *عندك آيفون؟ أو تبي تطلب بدون تحميل التطبيق؟*\n`;
+text += `🌐 اطلب مباشرة من الموقع 👇\n`;
+text += `https://deerty666.github.io/`;
   let url = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(text);
   window.open(url, '_blank');
 }
