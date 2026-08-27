@@ -288,6 +288,7 @@ function sendToWhatsApp() {
 
   let name = document.getElementById("custName").value.trim() || "لم يحدد";
   let address = document.getElementById("custAddress").value.trim() || "لم يحدد";
+  let driverPhone = document.getElementById("driverPhone").value.trim();
   let time = document.getElementById("custTime").value;
   let timeText = time ? new Date(time).toLocaleString('ar-SA') : "-";
   let paymentStatus = document.getElementById("paymentStatus") ? document.getElementById("paymentStatus").value : "غير مدفوع";
@@ -299,6 +300,9 @@ function sendToWhatsApp() {
   text += `📦 *نوع الطلب:* ${type}\n`;
   text += `💳 *حالة الدفع:* ${paymentStatus}\n`;
   text += `📍 *العنوان:* ${address}\n`;
+  if (orderType === "delivery" && driverPhone) {
+  text += `📞 *رقم المندوب:* ${driverPhone}\n`;
+}
   text += `⏰ *الموعد:* ${timeText}\n`;
   text += `━━━━━━━━━━━━━━━━━━\n\n`;
 
