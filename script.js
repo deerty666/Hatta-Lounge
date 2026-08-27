@@ -323,7 +323,7 @@ function sendToWhatsApp() {
   text += `نتمنى لكم وجبة شهية 😋 🌟\n\n`;
   text += `📱 *خل ديرتي دايم معك*\n`;
   text += `وثبت التطبيق الآن 👇\n`;
-  text += `https://deerty666.github.io/menu.html?branch=branch1`;
+  text += `https://play.google.com/store/apps/details?id=com.deerty.app&pcampaignid=web_share`;
 
   let url = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(text);
   window.open(url, '_blank');
