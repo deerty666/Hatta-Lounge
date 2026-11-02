@@ -110,15 +110,6 @@ let menu = (
   saved.items.length > 0
 ) ? saved : defaultMenu;
 
-let saved = null;
-try {
-  saved = JSON.parse(localStorage.getItem("menu"));
-} catch (e) {
-  localStorage.removeItem("menu");
-}
-
-let menu = (saved && saved.items && saved.items.length > 0) ? saved : defaultMenu;
-
 let cart = [], openCategory = null, orderType = "takeaway";
 
 function saveMenu() { localStorage.setItem("menu", JSON.stringify(menu)); }
