@@ -19,7 +19,7 @@ let defaultMenu = {
 
   items: [
     // القسم الأول
-    { id: 1, name: "صنف 1", price: 15, category: "شوايه " },
+    { id: 1, name: "صنف 1", price: 15, category: "شوايه" },
     { id: 2, name: "صنف 2", price: 20, category: "شوايه" },
     { id: 3, name: "صنف 3", price: 25, category: "شوايه" },
 
