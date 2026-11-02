@@ -46,7 +46,7 @@ let defaultMenu = {
     { id: 21, name: "نص مندي شعبي", price: 24, category: "مندي" },
     { id: 22, name: "حبة مندي بشاور", price: 50, category: "مندي" },
     { id: 23, name: "نص مندي بشاور", price: 25, category: "مندي" },
-    { id: 24, name: "حبة مندي رز مندي", price: 25, category: "مندي" },
+    { id: 24, name: "حبة مندي رز مندي", price: 50, category: "مندي" },
     { id: 25, name: "نص مندي رزمندي", price: 25, category: "مندي" },
     { id: 26, name: "حبة مندي مثلوثه", price: 50, category: "مندي" },
     { id: 27, name: "نص مندي مثلوثه", price: 25, category: "مندي" },
