@@ -1,3 +1,16 @@
+// تحديد رقم الكاشير لكل جهاز
+let CASHIER_ID = localStorage.getItem("deerty_cashier_id");
+
+if (!CASHIER_ID) {
+  CASHIER_ID = prompt("أدخل رقم الكاشير لهذا الجهاز (1 أو 2 أو 3):");
+
+  if (["1", "2", "3"].includes(CASHIER_ID)) {
+    localStorage.setItem("deerty_cashier_id", CASHIER_ID);
+  } else {
+    CASHIER_ID = "1";
+    localStorage.setItem("deerty_cashier_id", CASHIER_ID);
+  }
+}
 let defaultMenu = {
   categories: [
     "شوايه",
@@ -341,6 +354,7 @@ function saveInvoice() {
   let invoice = {
     id: Date.now(),
     invoiceNo: invoices.length + 1,
+    cashierId: localStorage.getItem("deerty_cashier_id") || "1",
     date: new Date().toLocaleString('ar-SA'),
     name: document.getElementById("custName").value || "-",
     phone: document.getElementById("custPhone").value || "-",
@@ -571,6 +585,10 @@ function printReceipt() {
   <div class="black-box">فاتورة حجز مؤقتة</div>
   <div class="info-box">
   <div class="info-row"><span>رقم الفاتورة</span><span>${invoiceNo}</span></div>
+  <div class="info-row">
+  <span>رقم الكاشير</span>
+  <span>${CASHIER_ID}</span>
+</div>
   <div class="info-row"><span>اسم العميل</span><span>${cName}</span></div>
   <div class="info-row"><span>الجوال</span><span>${cPhone}</span></div>
   <div class="info-row"><span>العنوان</span><span>${cAddress}</span></div>
