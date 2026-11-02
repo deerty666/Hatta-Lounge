@@ -11,8 +11,8 @@ let defaultMenu = {
     "ببسي",
     "مقبلات",
     "كنافة",
-    "ايدامات ",
-    "تأمين ",
+    "ايدامات",
+    "تأمين",
     "قسم 14 - المشروبات",
     "قسم 15 - الحلويات"
   ],
@@ -69,19 +69,19 @@ let defaultMenu = {
     { id: 30, name: "صنف 3", price: 10, category: "مقبلات" },
 
     // القسم الحادي عشر
-    { id: 31, name: "صنف 1", price: 5, category: "قسم 11 - السلطات" },
-    { id: 32, name: "صنف 2", price: 8, category: "قسم 11 - السلطات" },
-    { id: 33, name: "صنف 3", price: 10, category: "قسم 11 - السلطات" },
+    { id: 31, name: "صنف 1", price: 5, category: "كنافة" },
+    { id: 32, name: "صنف 2", price: 8, category: "كنافة" },
+    { id: 33, name: "صنف 3", price: 10, category: "كنافة" },
 
     // القسم الثاني عشر
-    { id: 34, name: "صنف 1", price: 5, category: "قسم 12 - الشوربات" },
-    { id: 35, name: "صنف 2", price: 8, category: "قسم 12 - الشوربات" },
-    { id: 36, name: "صنف 3", price: 10, category: "قسم 12 - الشوربات" },
+    { id: 34, name: "صنف 1", price: 5, category: "ايدامات" },
+    { id: 35, name: "صنف 2", price: 8, category: "ايدامات" },
+    { id: 36, name: "صنف 3", price: 10, category: "ايدامات" },
 
     // القسم الثالث عشر
-    { id: 37, name: "صنف 1", price: 8, category: "قسم 13 - الإيدامات" },
-    { id: 38, name: "صنف 2", price: 12, category: "قسم 13 - الإيدامات" },
-    { id: 39, name: "صنف 3", price: 15, category: "قسم 13 - الإيدامات" },
+    { id: 37, name: "صنف 1", price: 8, category: تأمين"" },
+    { id: 38, name: "صنف 2", price: 12, category: "تأمين" },
+    { id: 39, name: "صنف 3", price: 15, category: "تأمين" },
 
     // القسم الرابع عشر
     { id: 40, name: "صنف 1", price: 3, category: "قسم 14 - المشروبات" },
