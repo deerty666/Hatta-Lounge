@@ -24,19 +24,19 @@ let defaultMenu = {
     { id: 3, name: "صنف 3", price: 25, category: "شوايه" },
 
     // القسم الثاني
-    { id: 4, name: "صنف 1", price: 20, category: "قسم 2 - المشويات" },
-    { id: 5, name: "صنف 2", price: 25, category: "قسم 2 - المشويات" },
-    { id: 6, name: "صنف 3", price: 30, category: "قسم 2 - المشويات" },
+    { id: 4, name: "صنف 1", price: 20, category: "مظبي" },
+    { id: 5, name: "صنف 2", price: 25, category: "مظبي" },
+    { id: 6, name: "صنف 3", price: 30, category: "مظبي" },
 
     // القسم الثالث
-    { id: 7, name: "صنف 1", price: 15, category: "قسم 3 - الدجاج" },
-    { id: 8, name: "صنف 2", price: 20, category: "قسم 3 - الدجاج" },
-    { id: 9, name: "صنف 3", price: 25, category: "قسم 3 - الدجاج" },
+    { id: 7, name: "صنف 1", price: 15, category: "مندي" },
+    { id: 8, name: "صنف 2", price: 20, category: "مندي" },
+    { id: 9, name: "صنف 3", price: 25, category: "مندي" },
 
     // القسم الرابع
-    { id: 10, name: "صنف 1", price: 10, category: "قسم 4 - الأرز" },
-    { id: 11, name: "صنف 2", price: 15, category: "قسم 4 - الأرز" },
-    { id: 12, name: "صنف 3", price: 20, category: "قسم 4 - الأرز" },
+    { id: 10, name: "صنف 1", price: 10, category: "مضغوط مقلوبه" },
+    { id: 11, name: "صنف 2", price: 15, category: "مضغوط مقلوبه" },
+    { id: 12, name: "صنف 3", price: 20, category: "مضغوط مقلوبه" },
 
     // القسم الخامس
     { id: 13, name: "صنف 1", price: 25, category: "قسم 5 - المندي" },
