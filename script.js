@@ -1,11 +1,114 @@
 let defaultMenu = {
-  categories: ["وجبات", "مشروبات"],
+  categories: [
+    "قسم 1 - الوجبات",
+    "قسم 2 - المشويات",
+    "قسم 3 - الدجاج",
+    "قسم 4 - الأرز",
+    "قسم 5 - المندي",
+    "قسم 6 - المظبي",
+    "قسم 7 - المضغوط",
+    "قسم 8 - المقلوبة",
+    "قسم 9 - اللحوم",
+    "قسم 10 - المقبلات",
+    "قسم 11 - السلطات",
+    "قسم 12 - الشوربات",
+    "قسم 13 - الإيدامات",
+    "قسم 14 - المشروبات",
+    "قسم 15 - الحلويات"
+  ],
+
   items: [
-    { id: 1, name: "برجر", price: 15, category: "وجبات" },
-    { id: 2, name: "بيتزا", price: 25, category: "وجبات" },
-    { id: 3, name: "عصير", price: 8, category: "مشروبات" }
+    // القسم الأول
+    { id: 1, name: "صنف 1", price: 15, category: "قسم 1 - الوجبات" },
+    { id: 2, name: "صنف 2", price: 20, category: "قسم 1 - الوجبات" },
+    { id: 3, name: "صنف 3", price: 25, category: "قسم 1 - الوجبات" },
+
+    // القسم الثاني
+    { id: 4, name: "صنف 1", price: 20, category: "قسم 2 - المشويات" },
+    { id: 5, name: "صنف 2", price: 25, category: "قسم 2 - المشويات" },
+    { id: 6, name: "صنف 3", price: 30, category: "قسم 2 - المشويات" },
+
+    // القسم الثالث
+    { id: 7, name: "صنف 1", price: 15, category: "قسم 3 - الدجاج" },
+    { id: 8, name: "صنف 2", price: 20, category: "قسم 3 - الدجاج" },
+    { id: 9, name: "صنف 3", price: 25, category: "قسم 3 - الدجاج" },
+
+    // القسم الرابع
+    { id: 10, name: "صنف 1", price: 10, category: "قسم 4 - الأرز" },
+    { id: 11, name: "صنف 2", price: 15, category: "قسم 4 - الأرز" },
+    { id: 12, name: "صنف 3", price: 20, category: "قسم 4 - الأرز" },
+
+    // القسم الخامس
+    { id: 13, name: "صنف 1", price: 25, category: "قسم 5 - المندي" },
+    { id: 14, name: "صنف 2", price: 30, category: "قسم 5 - المندي" },
+    { id: 15, name: "صنف 3", price: 35, category: "قسم 5 - المندي" },
+
+    // القسم السادس
+    { id: 16, name: "صنف 1", price: 25, category: "قسم 6 - المظبي" },
+    { id: 17, name: "صنف 2", price: 30, category: "قسم 6 - المظبي" },
+    { id: 18, name: "صنف 3", price: 35, category: "قسم 6 - المظبي" },
+
+    // القسم السابع
+    { id: 19, name: "صنف 1", price: 20, category: "قسم 7 - المضغوط" },
+    { id: 20, name: "صنف 2", price: 25, category: "قسم 7 - المضغوط" },
+    { id: 21, name: "صنف 3", price: 30, category: "قسم 7 - المضغوط" },
+
+    // القسم الثامن
+    { id: 22, name: "صنف 1", price: 20, category: "قسم 8 - المقلوبة" },
+    { id: 23, name: "صنف 2", price: 25, category: "قسم 8 - المقلوبة" },
+    { id: 24, name: "صنف 3", price: 30, category: "قسم 8 - المقلوبة" },
+
+    // القسم التاسع
+    { id: 25, name: "صنف 1", price: 50, category: "قسم 9 - اللحوم" },
+    { id: 26, name: "صنف 2", price: 75, category: "قسم 9 - اللحوم" },
+    { id: 27, name: "صنف 3", price: 100, category: "قسم 9 - اللحوم" },
+
+    // القسم العاشر
+    { id: 28, name: "صنف 1", price: 5, category: "قسم 10 - المقبلات" },
+    { id: 29, name: "صنف 2", price: 8, category: "قسم 10 - المقبلات" },
+    { id: 30, name: "صنف 3", price: 10, category: "قسم 10 - المقبلات" },
+
+    // القسم الحادي عشر
+    { id: 31, name: "صنف 1", price: 5, category: "قسم 11 - السلطات" },
+    { id: 32, name: "صنف 2", price: 8, category: "قسم 11 - السلطات" },
+    { id: 33, name: "صنف 3", price: 10, category: "قسم 11 - السلطات" },
+
+    // القسم الثاني عشر
+    { id: 34, name: "صنف 1", price: 5, category: "قسم 12 - الشوربات" },
+    { id: 35, name: "صنف 2", price: 8, category: "قسم 12 - الشوربات" },
+    { id: 36, name: "صنف 3", price: 10, category: "قسم 12 - الشوربات" },
+
+    // القسم الثالث عشر
+    { id: 37, name: "صنف 1", price: 8, category: "قسم 13 - الإيدامات" },
+    { id: 38, name: "صنف 2", price: 12, category: "قسم 13 - الإيدامات" },
+    { id: 39, name: "صنف 3", price: 15, category: "قسم 13 - الإيدامات" },
+
+    // القسم الرابع عشر
+    { id: 40, name: "صنف 1", price: 3, category: "قسم 14 - المشروبات" },
+    { id: 41, name: "صنف 2", price: 5, category: "قسم 14 - المشروبات" },
+    { id: 42, name: "صنف 3", price: 8, category: "قسم 14 - المشروبات" },
+
+    // القسم الخامس عشر
+    { id: 43, name: "صنف 1", price: 5, category: "قسم 15 - الحلويات" },
+    { id: 44, name: "صنف 2", price: 10, category: "قسم 15 - الحلويات" },
+    { id: 45, name: "صنف 3", price: 15, category: "قسم 15 - الحلويات" }
   ]
 };
+
+let saved = null;
+
+try {
+  saved = JSON.parse(localStorage.getItem("menu"));
+} catch (e) {
+  localStorage.removeItem("menu");
+}
+
+let menu = (
+  saved &&
+  Array.isArray(saved.categories) &&
+  Array.isArray(saved.items) &&
+  saved.items.length > 0
+) ? saved : defaultMenu;
 
 let saved = null;
 try {
