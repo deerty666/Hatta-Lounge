@@ -5,11 +5,11 @@ let defaultMenu = {
     "مندي",
     "مضغوط مقلوبه",
     "لحم مندي",
-    "حاشي+برمه ",
-    "مشويات ",
+    "حاشي+برمه",
+    "مشويات",
     "رز وجريش",
     "ببسي",
-    "مقبلات ",
+    "مقبلات",
     "كنافة",
     "ايدامات ",
     "تأمين ",
@@ -39,34 +39,34 @@ let defaultMenu = {
     { id: 12, name: "صنف 3", price: 20, category: "مضغوط مقلوبه" },
 
     // القسم الخامس
-    { id: 13, name: "صنف 1", price: 25, category: "قسم 5 - المندي" },
-    { id: 14, name: "صنف 2", price: 30, category: "قسم 5 - المندي" },
-    { id: 15, name: "صنف 3", price: 35, category: "قسم 5 - المندي" },
+    { id: 13, name: "صنف 1", price: 25, category: "لحم مندي" },
+    { id: 14, name: "صنف 2", price: 30, category: "لحم مندي" },
+    { id: 15, name: "صنف 3", price: 35, category: "لحم مندي" },
 
     // القسم السادس
-    { id: 16, name: "صنف 1", price: 25, category: "قسم 6 - المظبي" },
-    { id: 17, name: "صنف 2", price: 30, category: "قسم 6 - المظبي" },
-    { id: 18, name: "صنف 3", price: 35, category: "قسم 6 - المظبي" },
+    { id: 16, name: "صنف 1", price: 25, category: "حاشي+برمه" },
+    { id: 17, name: "صنف 2", price: 30, category: "حاشي+برمه" },
+    { id: 18, name: "صنف 3", price: 35, category: "حاشي+برمه" },
 
     // القسم السابع
-    { id: 19, name: "صنف 1", price: 20, category: "قسم 7 - المضغوط" },
-    { id: 20, name: "صنف 2", price: 25, category: "قسم 7 - المضغوط" },
-    { id: 21, name: "صنف 3", price: 30, category: "قسم 7 - المضغوط" },
+    { id: 19, name: "صنف 1", price: 20, category: "مشويات" },
+    { id: 20, name: "صنف 2", price: 25, category: "مشويات" },
+    { id: 21, name: "صنف 3", price: 30, category: "مشويات" },
 
     // القسم الثامن
-    { id: 22, name: "صنف 1", price: 20, category: "قسم 8 - المقلوبة" },
-    { id: 23, name: "صنف 2", price: 25, category: "قسم 8 - المقلوبة" },
-    { id: 24, name: "صنف 3", price: 30, category: "قسم 8 - المقلوبة" },
+    { id: 22, name: "صنف 1", price: 20, category: "رز وجريش" },
+    { id: 23, name: "صنف 2", price: 25, category: "رز وجريش" },
+    { id: 24, name: "صنف 3", price: 30, category: "رز وجريش" },
 
     // القسم التاسع
-    { id: 25, name: "صنف 1", price: 50, category: "قسم 9 - اللحوم" },
-    { id: 26, name: "صنف 2", price: 75, category: "قسم 9 - اللحوم" },
-    { id: 27, name: "صنف 3", price: 100, category: "قسم 9 - اللحوم" },
+    { id: 25, name: "صنف 1", price: 50, category: "ببسي" },
+    { id: 26, name: "صنف 2", price: 75, category: "ببسي" },
+    { id: 27, name: "صنف 3", price: 100, category: "ببسي" },
 
     // القسم العاشر
-    { id: 28, name: "صنف 1", price: 5, category: "قسم 10 - المقبلات" },
-    { id: 29, name: "صنف 2", price: 8, category: "قسم 10 - المقبلات" },
-    { id: 30, name: "صنف 3", price: 10, category: "قسم 10 - المقبلات" },
+    { id: 28, name: "صنف 1", price: 5, category: "مقبلات" },
+    { id: 29, name: "صنف 2", price: 8, category: "مقبلات" },
+    { id: 30, name: "صنف 3", price: 10, category: "مقبلات" },
 
     // القسم الحادي عشر
     { id: 31, name: "صنف 1", price: 5, category: "قسم 11 - السلطات" },
