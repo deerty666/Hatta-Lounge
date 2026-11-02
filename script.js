@@ -80,54 +80,54 @@ let defaultMenu = {
     { id: 51, name: "نفر لحم رز مندي", price: 100, category: "لحم مندي" },
 
     // القسم السادس
-    { id: 16, name: "صنف 1", price: 25, category: "حاشي+برمه" },
-    { id: 17, name: "صنف 2", price: 30, category: "حاشي+برمه" },
-    { id: 18, name: "صنف 3", price: 35, category: "حاشي+برمه" },
+    { id: 55, name: "صنف 1", price: 25, category: "حاشي+برمه" },
+    { id: 56, name: "صنف 2", price: 30, category: "حاشي+برمه" },
+    { id: 57, name: "صنف 3", price: 35, category: "حاشي+برمه" },
 
     // القسم السابع
-    { id: 19, name: "صنف 1", price: 20, category: "مشويات" },
-    { id: 20, name: "صنف 2", price: 25, category: "مشويات" },
-    { id: 21, name: "صنف 3", price: 30, category: "مشويات" },
+    { id: 58, name: "صنف 1", price: 20, category: "مشويات" },
+    { id: 59, name: "صنف 2", price: 25, category: "مشويات" },
+    { id: 60, name: "صنف 3", price: 30, category: "مشويات" },
 
     // القسم الثامن
-    { id: 22, name: "صنف 1", price: 20, category: "رز وجريش" },
-    { id: 23, name: "صنف 2", price: 25, category: "رز وجريش" },
-    { id: 24, name: "صنف 3", price: 30, category: "رز وجريش" },
+    { id: 61, name: "صنف 1", price: 20, category: "رز وجريش" },
+    { id: 62, name: "صنف 2", price: 25, category: "رز وجريش" },
+    { id: 63, name: "صنف 3", price: 30, category: "رز وجريش" },
 
     // القسم التاسع
-    { id: 25, name: "صنف 1", price: 50, category: "ببسي" },
-    { id: 26, name: "صنف 2", price: 75, category: "ببسي" },
-    { id: 27, name: "صنف 3", price: 100, category: "ببسي" },
+    { id: 64, name: "صنف 1", price: 50, category: "ببسي" },
+    { id: 65, name: "صنف 2", price: 75, category: "ببسي" },
+    { id: 66, name: "صنف 3", price: 100, category: "ببسي" },
 
     // القسم العاشر
-    { id: 28, name: "صنف 1", price: 5, category: "مقبلات" },
-    { id: 29, name: "صنف 2", price: 8, category: "مقبلات" },
-    { id: 30, name: "صنف 3", price: 10, category: "مقبلات" },
+    { id: 68, name: "صنف 1", price: 5, category: "مقبلات" },
+    { id: 69, name: "صنف 2", price: 8, category: "مقبلات" },
+    { id: 70, name: "صنف 3", price: 10, category: "مقبلات" },
 
     // القسم الحادي عشر
-    { id: 31, name: "صنف 1", price: 5, category: "كنافة" },
-    { id: 32, name: "صنف 2", price: 8, category: "كنافة" },
-    { id: 33, name: "صنف 3", price: 10, category: "كنافة" },
+    { id: 71, name: "صنف 1", price: 5, category: "كنافة" },
+    { id: 72, name: "صنف 2", price: 8, category: "كنافة" },
+    { id: 73, name: "صنف 3", price: 10, category: "كنافة" },
 
     // القسم الثاني عشر
-    { id: 34, name: "صنف 1", price: 5, category: "ايدامات" },
-    { id: 35, name: "صنف 2", price: 8, category: "ايدامات" },
-    { id: 36, name: "صنف 3", price: 10, category: "ايدامات" },
+    { id: 74, name: "صنف 1", price: 5, category: "ايدامات" },
+    { id: 75, name: "صنف 2", price: 8, category: "ايدامات" },
+    { id: 76, name: "صنف 3", price: 10, category: "ايدامات" },
 
     // القسم الثالث عشر
-    { id: 37, name: "صنف 1", price: 8, category: تأمين"" },
-    { id: 38, name: "صنف 2", price: 12, category: "تأمين" },
-    { id: 39, name: "صنف 3", price: 15, category: "تأمين" },
+    { id: 77, name: "صنف 1", price: 8, category: تأمين"" },
+    { id: 78, name: "صنف 2", price: 12, category: "تأمين" },
+    { id: 79, name: "صنف 3", price: 15, category: "تأمين" },
 
     // القسم الرابع عشر
-    { id: 40, name: "صنف 1", price: 3, category: "قسم 14 - المشروبات" },
-    { id: 41, name: "صنف 2", price: 5, category: "قسم 14 - المشروبات" },
-    { id: 42, name: "صنف 3", price: 8, category: "قسم 14 - المشروبات" },
+    { id: 80, name: "صنف 1", price: 3, category: "قسم 14 - المشروبات" },
+    { id: 81, name: "صنف 2", price: 5, category: "قسم 14 - المشروبات" },
+    { id: 82, name: "صنف 3", price: 8, category: "قسم 14 - المشروبات" },
 
     // القسم الخامس عشر
-    { id: 43, name: "صنف 1", price: 5, category: "قسم 15 - الحلويات" },
-    { id: 44, name: "صنف 2", price: 10, category: "قسم 15 - الحلويات" },
-    { id: 45, name: "صنف 3", price: 15, category: "قسم 15 - الحلويات" }
+    { id: 83, name: "صنف 1", price: 5, category: "قسم 15 - الحلويات" },
+    { id: 84, name: "صنف 2", price: 10, category: "قسم 15 - الحلويات" },
+    { id: 85, name: "صنف 3", price: 15, category: "قسم 15 - الحلويات" }
   ]
 };
 
