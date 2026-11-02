@@ -115,7 +115,7 @@ let defaultMenu = {
     { id: 76, name: "صنف 3", price: 10, category: "ايدامات" },
 
     // القسم الثالث عشر
-    { id: 77, name: "صنف 1", price: 8, category: تأمين"" },
+    { id: 77, name: "صنف 1", price: 8, category: "تأمين" },
     { id: 78, name: "صنف 2", price: 12, category: "تأمين" },
     { id: 79, name: "صنف 3", price: 15, category: "تأمين" },
 
