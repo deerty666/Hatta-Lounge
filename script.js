@@ -111,9 +111,16 @@ let defaultMenu = {
     { id: 81, name: "نفر شيش طاوق", price: 30, category: "مشويات" },
 
     // القسم الثامن
-    { id: 61, name: "صنف 1", price: 20, category: "رز وجريش" },
-    { id: 62, name: "صنف 2", price: 25, category: "رز وجريش" },
-    { id: 63, name: "صنف 3", price: 30, category: "رز وجريش" },
+    { id: 61, name: "جريش كبير", price: 10, category: "رز وجريش" },
+    { id: 62, name: "جريش صغير", price: 5, category: "رز وجريش" },
+    { id: 63, name: "حريش مع قرصان كبير", price: 10, category: "رز وجريش" },
+    { id: 61, name: "جريش مع قرصان صغير", price: 5, category: "رز وجريش" },
+    { id: 62, name: "قرصان كبير", price: 10, category: "رز وجريش" },
+    { id: 61, name: "قرصان صغير", price: 5, category: "رز وجريش" },
+    { id: 62, name: "نفر رز شعبي", price: 9, category: "رز وجريش" },
+    { id: 63, name: "نفر رز بشاور", price: 10, category: "رز وجريش" },
+    { id: 63, name: "نفر رز مندي", price: 10, category: "رز وجريش" },
+    { id: 63, name: "نفر رز مثلوثه", price: 11, category: "رز وجريش" },
 
     // القسم التاسع
     { id: 64, name: "صنف 1", price: 50, category: "ببسي" },
