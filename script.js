@@ -40,7 +40,7 @@ let defaultMenu = {
      { id: 6, name: "نص شواية رزمندي", price: 25, category: "شوايه" },
      { id: 7, name: "حبة شواية مثلوثه", price: 50, category: "شوايه" },
      { id: 8, name: "نص شواية مثلوثه", price: 25, category: "شوايه" },
-     { id: 9, name: "نص شواية ساده", price: 17, category: "شوايه" },
+     { id: 9, name: "نص شواية ساده", price: 18, category: "شوايه" },
     { id: 10, name: "ربع شوايه", price: 15, category: "شوايه" },
 
     // القسم الثاني
@@ -52,7 +52,7 @@ let defaultMenu = {
      { id: 16, name: "نص مظبي رز مندي", price: 25, category: "مظبي" },
      { id: 17, name: "حبة مظبي مثلوثه", price: 50, category: "مظبي" },
      { id: 18, name: "نص مظبي مثلوثه", price: 25, category: "مظبي" },
-    { id: 19, name: "نص مظبي ساده", price: 17, category: "مظبي" },
+    { id: 19, name: "نص مظبي ساده", price: 18, category: "مظبي" },
 
     // القسم الثالث
     { id: 20, name: "حبة مندي شعبي", price: 48, category: "مندي" },
